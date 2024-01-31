@@ -11,6 +11,10 @@ DoughFin is a user-friendly financial management app designed to help individual
 **Secure Account Linking:** Safely link your bank account(s) for real-time transaction updates.
 Getting Started<br>
 
+## Database Schema
+![image](https://github.com/DoughFin/DoughFin_BE/assets/137924232/92fe88f0-7273-4cf9-b2bf-699149024234)
+
+
 ## Acknowledgments
 Thank you to all the contributors who have helped shape DoughFin.
 Special thanks to our users for trusting us with their financial management needs.
