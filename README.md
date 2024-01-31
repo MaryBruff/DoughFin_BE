@@ -12,7 +12,8 @@ DoughFin is a user-friendly financial management app designed to help individual
 Getting Started<br>
 
 ## Database Schema
-![image](https://github.com/DoughFin/DoughFin_BE/assets/137924232/92fe88f0-7273-4cf9-b2bf-699149024234)
+
+<img alt="image" src="https://github.com/DoughFin/DoughFin_BE/assets/137924232/92fe88f0-7273-4cf9-b2bf-699149024234" height="250"/>
 
 
 ## Acknowledgments
