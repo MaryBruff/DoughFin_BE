@@ -1,9 +1,13 @@
+require "faker"
+
 FactoryBot.define do
   factory :expense do
-    user { nil }
-    category { "MyString" }
-    amount { 1.5 }
-    type { "" }
-    date { "2024-01-31" }
+    association :user
+
+    vendor { Faker::Company.name }
+    category { Faker::Company.type }
+    amount { Faker::Commerce.price(range: 0..999) }
+    type { %(projected actual).sample }
+    date { Date.today }
   end
 end
