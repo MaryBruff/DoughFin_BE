@@ -14,7 +14,7 @@ DoughFin is a user-friendly financial management app designed to help individual
 [Postman Environment](https://turing-school-of-software-and-design-student-plan-team-2.postman.co/workspace/8ddf4dac-97e4-442b-8e86-5b3d49e18134)
 
 ## Database Schema
-<img alt="image" src="https://github.com/DoughFin/DoughFin_BE/assets/137924232/92fe88f0-7273-4cf9-b2bf-699149024234" height="250"/>
+<img width="750" alt="Screenshot 2024-02-02 at 16 09 48" src="https://github.com/DoughFin/DoughFin_BE/assets/25095319/ecd61e9c-aa9a-4734-8326-73826470f102">
 
 ## GraphQl Contract
 ```markdown
