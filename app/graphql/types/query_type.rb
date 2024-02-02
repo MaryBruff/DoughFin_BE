@@ -2,6 +2,15 @@
 
 module Types
   class QueryType < Types::BaseObject
+    field :users,
+      [Types::UserType],
+      null: false,
+      description: "Returns all users"
+
+    def users
+      User.all
+    end
+
     field :node, Types::NodeType, null: true, description: "Fetches an object given its ID." do
       argument :id, ID, required: true, description: "ID of the object."
     end

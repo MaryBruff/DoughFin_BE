@@ -2,8 +2,8 @@ require "rails_helper"
 
 RSpec.describe User, type: :model do
   describe "relationships" do
-    it {should have_many :incomes}
-    it {should have_many :expenses}
+    it { should have_many :incomes }
+    it { should have_many :expenses }
   end
 
   it "creates a user with all attributes" do
