@@ -4,11 +4,14 @@ RSpec.describe User, type: :model do
   describe "relationships" do
     it { should have_many :incomes }
     it { should have_many :expenses }
+    it { should validate_presence_of :username }
+    it { should validate_presence_of :email }
+    it { should validate_uniqueness_of :email }
   end
 
   it "creates a user with all attributes" do
-    user = User.create(username: "josephlee", email: "josephlee@gmail.com")
-    expect(user).to have_attributes(username: "josephlee")
-    expect(user).to have_attributes(email: "josephlee@gmail.com")
+    user = User.create(username: "moneybaggins", email: "moneybaggins@bigbanktakelilbank.doge")
+    expect(user).to have_attributes(username: "moneybaggins")
+    expect(user).to have_attributes(email: "moneybaggins@bigbanktakelilbank.doge")
   end
 end
