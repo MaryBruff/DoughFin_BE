@@ -19,7 +19,7 @@ class Mutations::DeleteExpense < Mutations::BaseMutation
     else 
       {
         code: 404,
-        message: expense.errors.full_messages,
+        message: "No expense found with expenseId #{expenseId.first.last}",
         success: false,
       }
     end
