@@ -4,10 +4,10 @@ FactoryBot.define do
   factory :expense do
     association :user
 
-    vendor { Faker::Company.name }
+    # vendor { Faker::Company.name }
     category { Faker::Company.type }
     amount { Faker::Commerce.price(range: 0..999) }
-    type { %(projected actual).sample }
+    nature { Faker::Company.type }
     date { Date.today }
   end
 end
