@@ -2,13 +2,15 @@
 
 module Types
   class QueryType < Types::BaseObject
-    field :users,
-      [Types::UserType],
+    field :user,
+      Types::UserType,
       null: false,
-      description: "Returns all users"
+      description: "Returns a user" do
+      argument :email, String, required: true, description: "Email of the user"
+    end
 
-    def users
-      User.all
+    def user(email:)
+      User.where(email: email).first
     end
 
     field :node, Types::NodeType, null: true, description: "Fetches an object given its ID." do

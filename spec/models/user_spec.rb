@@ -9,7 +9,7 @@ RSpec.describe User, type: :model do
     it { should validate_uniqueness_of :email }
   end
 
-  it "creates a user with all attributes" do
+  it "creates a user_spec.rb with all attributes" do
     user = User.create(username: "moneybaggins", email: "moneybaggins@bigbanktakelilbank.doge")
     expect(user).to have_attributes(username: "moneybaggins")
     expect(user).to have_attributes(email: "moneybaggins@bigbanktakelilbank.doge")
