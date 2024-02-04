@@ -5,7 +5,6 @@ class CreateExpenses < ActiveRecord::Migration[7.1]
       t.string :category
       t.string :vendor
       t.float :amount
-      t.string :status, default: "projected"
       t.date :date
 
       t.timestamps

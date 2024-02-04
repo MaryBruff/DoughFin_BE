@@ -12,7 +12,6 @@ RSpec.describe Expense, type: :model do
     expect(expense).to have_attributes(user_id: user.id)
     expect(expense).to have_attributes(category: "food")
     expect(expense).to have_attributes(amount: 23.75)
-    expect(expense).to have_attributes(status: "projected")
     expect(expense.date.strftime("%Y-%m-%d")).to eq("2023-05-13")
   end
 end
