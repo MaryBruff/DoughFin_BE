@@ -2,9 +2,9 @@
 
 module Types
   class IncomeInputType < Types::BaseInputObject
-    argument :user_id, Integer, required: true
+    argument :userId, Int, required: true
     argument :source, String, required: true
     argument :amount, Float, required: true
-    argument :date, GraphQL::Types::ISO8601Date, required: true
+    argument :date, String, required: true
   end
 end
