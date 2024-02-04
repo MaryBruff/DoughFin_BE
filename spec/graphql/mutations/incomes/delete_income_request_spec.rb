@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Mutations::DeleteIncome, type: :request do
   describe "resolve" do
@@ -19,14 +19,14 @@ RSpec.describe Mutations::DeleteIncome, type: :request do
 
       expect(user.incomes.length).to eq(5)
 
-      post '/graphql', params: { query: mutation }
+      post "/graphql", params: {query: mutation}
 
       json_response = JSON.parse(response.body)
-      data = json_response['data']['deleteIncome']
-      
-      expect(data['code']).to eq(204)
-      expect(data['message']).to eq("Successfully deleted income")
-      expect(data['success']).to be(true)
+      data = json_response["data"]["deleteIncome"]
+
+      expect(data["code"]).to eq(204)
+      expect(data["message"]).to eq("Successfully deleted income")
+      expect(data["success"]).to be(true)
 
       expect(Income.all.length).to eq(4)
     end
@@ -49,14 +49,14 @@ RSpec.describe Mutations::DeleteIncome, type: :request do
 
       expect(user.incomes.length).to eq(3)
 
-      post '/graphql', params: { query: mutation }
+      post "/graphql", params: {query: mutation}
 
       json_response = JSON.parse(response.body)
-      data = json_response['data']['deleteIncome']
+      data = json_response["data"]["deleteIncome"]
 
-      expect(data['code']).to eq(404)
-      expect(data['message']).to eq("No income found with incomeId 123123123")
-      expect(data['success']).to be(false)
+      expect(data["code"]).to eq(404)
+      expect(data["message"]).to eq("No income found with income_id 123123123")
+      expect(data["success"]).to be(false)
 
       expect(Income.all.length).to eq(3)
     end
