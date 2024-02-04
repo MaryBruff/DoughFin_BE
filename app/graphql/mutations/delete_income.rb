@@ -8,7 +8,6 @@ class Mutations::DeleteIncome < Mutations::BaseMutation
 
   def resolve(incomeId)
     income = Income.find_by(id: incomeId.first)
-    # binding.pry
     if income
       income.destroy!
       {
