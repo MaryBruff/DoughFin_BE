@@ -19,3 +19,8 @@ Expense.create!(status: "projected",
   category: "Business Incidentals",
   amount: 10000.00,
   user_id: u1.id)
+
+User.create!(username: "john_smith", email: "email@email.com")
+# 5.times do
+#   user.expenses.create!()
+# end
