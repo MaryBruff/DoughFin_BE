@@ -18,7 +18,7 @@ class Mutations::DeleteIncome < Mutations::BaseMutation
     else
       {
         code: 404,
-        message: "No income found with income_id #{income_id.first.last}",
+        message: "No income found with income_id #{incomeId.first.last}",
         success: false
       }
     end
