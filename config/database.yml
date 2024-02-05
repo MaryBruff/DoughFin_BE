@@ -79,6 +79,6 @@ test:
 #
 production:
   <<: *default
+  url: <%= ENV["DATABASE_URL"] %>
   database: dough_fin_be_production
   username: dough_fin_be
-  password: <%= ENV["DOUGH_FIN_BE_DATABASE_PASSWORD"] %>
