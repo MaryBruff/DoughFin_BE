@@ -80,4 +80,3 @@ test:
 production:
   <<: *default
   url: <%= Rails.application.credentials.DATABASE_URL %>
-  database: dough_fin_be_production
