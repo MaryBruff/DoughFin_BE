@@ -1,5 +1,5 @@
 databases:
-  - name: dough_fin_be_production
+  - name: doughfin_be_pg
     databaseName: dough_fin_be_production
     user: dough_fin_be
     plan: free
