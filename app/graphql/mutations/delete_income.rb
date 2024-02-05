@@ -6,9 +6,8 @@ class Mutations::DeleteIncome < Mutations::BaseMutation
   field :message, String, null: false
   field :success, Boolean, null: false
 
-  def resolve(income_id)
-    income = Income.find_by(id: income_id.first)
-    # binding.pry
+  def resolve(incomeId)
+    income = Income.find_by(id: incomeId.first)
     if income
       income.destroy!
       {
@@ -19,7 +18,7 @@ class Mutations::DeleteIncome < Mutations::BaseMutation
     else
       {
         code: 404,
-        message: "No income found with income_id #{income_id.first.last}",
+        message: "No income found with income_id #{incomeId.first.last}",
         success: false
       }
     end
