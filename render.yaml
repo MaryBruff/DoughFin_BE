@@ -1,9 +1,3 @@
-databases:
-  - name: doughfin_be_pg
-    databaseName: dough_fin_be_production
-    user: dough_fin_be
-    plan: free
-
 services:
   - type: web
     name: doughfin_be
