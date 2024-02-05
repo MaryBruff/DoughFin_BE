@@ -4,7 +4,7 @@ class Mutations::CreateIncome < Mutations::BaseMutation
   argument :amount, Float, required: true
   argument :date, String, required: true
 
-  field :user, Types::UserType, null: false
+  field :user_id, Integer, null: false
   field :source, String, null: false
   field :amount, Float, null: false
   field :date, String, null: false
