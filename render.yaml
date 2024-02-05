@@ -1,7 +1,7 @@
 databases:
-  - name: doughfin_be
-    databaseName: doughfin_be_db
-    user: admin
+  - name: dough_fin_be_production
+    databaseName: dough_fin_be_production
+    user: dough_fin_be
     plan: free
 
 services:
