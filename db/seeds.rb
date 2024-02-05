@@ -7,6 +7,19 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+u1 = User.create!(username: "moneybaggins", email: "moneybaggins@bigbanktakelilbank.doge")
+Income.create!(source: "Laundering", amount: 80085.00, user_id: u1.id)
+Expense.create!(status: "actual",
+  vendor: "ShhShh Hitman, LLC",
+  category: "Business Incidentals",
+  amount: 8000.00,
+  user_id: u1.id)
+Expense.create!(status: "projected",
+  category: "Business Incidentals",
+  amount: 10000.00,
+  user_id: u1.id)
+
 User.create!(username: "john_smith", email: "email@email.com")
 # 5.times do
 #   user.expenses.create!()

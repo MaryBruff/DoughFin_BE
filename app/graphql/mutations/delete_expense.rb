@@ -6,21 +6,21 @@ class Mutations::DeleteExpense < Mutations::BaseMutation
   field :message, String, null: false
   field :success, Boolean, null: false
 
-  def resolve(expenseId)
-    expense = Expense.find_by(id: expenseId.first)
-    
+  def resolve(expense_id)
+    expense = Expense.find_by(id: expense_id.first)
+
     if expense
       expense.destroy!
       {
         code: 204,
         message: "Successfully deleted expense",
-        success: true,
+        success: true
       }
-    else 
+    else
       {
         code: 404,
-        message: "No expense found with expenseId #{expenseId.first.last}",
-        success: false,
+        message: "No expense found with expenseId #{expense_id.first.last}",
+        success: false
       }
     end
   end

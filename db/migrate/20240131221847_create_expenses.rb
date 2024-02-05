@@ -4,8 +4,9 @@ class CreateExpenses < ActiveRecord::Migration[7.1]
       t.references :user, null: false, foreign_key: true
       t.string :vendor
       t.string :category
+      t.string :vendor
       t.float :amount
-      t.string :nature, default: "projected"
+      t.string :status, default: "projected"
       t.date :date
 
       t.timestamps
