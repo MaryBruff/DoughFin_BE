@@ -2,101 +2,44 @@ require 'rails_helper'
 
 RSpec.describe Mutations::CreateIncome, type: :request do
   describe "resolve" do
-    # it "successfully creates an income" do
-      let(:user) { create(:user) }
+    it "successfully creates an income" do
+      user = create(:user)
 
-      # mutation = <<~GQL
-      #   mutation {
-      #     createIncome(input: {
-      #       user_id: #{user.id},
-      #       source: "#{source}",
-      #       amount: #{amount},
-      #       date: "#{date}",
-      #       }) {
-      #         source
-      #         amount
-      #         date
-      #         }
-      #       }
-      # GQL
+      expect(user.incomes.length).to eq(0)
 
-      # mutation = <<~GQL
-      #   mutation CreateIncome($user_id: Int!, $source: String!, $amount: Float!, $date: ISO8601Date!) {
-      #     createIncome(input: {
-      #       user_id: #{user.id},
-      #       source: "#{source}",
-      #       amount: #{amount},
-      #       date: "#{date}",
-      #       }) {
-      #       source
-      #       amount
-      #       date
-      #     }
-      #   }
-      # GQL
-
-      # input = {
-      #     "user_id" => user.id,
-      #     "source" => source,
-      #     "amount" => amount,
-      #     "date" => date,
-      # }
-
-      let(:context) { {} }
-      let(:variables) do
-        {
-          "input" => {
-            "user_id" => user.id,
-            "source" => "Paycheck",
-            "amount" => 2345.12,
-            "date" => "2023-12-15"
-          }
-      }
-      end
-
-      let(:subject) {
-        DoughFinBeSchema.execute(
-          query_string,
-          context: context,
-          variables: variables
-        )
-      }
-      
-      # mutation = <<~GQL
-      #   mutation CreateIncome($input: IncomeInputType!) {
-      #     createIncome(input: $input) {
-      #       source
-      #       amount
-      #       date
-      #     }
-      #   }
-      # GQL
-
-      let(:query_string) do
-        'mutation CreateIncome($input: CreateInputType!) {
-          createIncome(input: $input) {
+      mutation = <<~GQL
+        mutation {
+          createIncome(input: {userId: #{user.id}, source: "Paycheck", amount: 2312.13, date: "2023-12-15"}) {
+            user {
+              id
+            }
             source
             amount
             date
           }
-        }'
-      end
+        }
+      GQL
+    
+      post '/graphql', params: { query: mutation }
+      json_response = JSON.parse(response.body, symbolize_names: true)
+      data = json_response[:data][:createIncome]
 
-      it "creates an income" do
-        #expect(user.incomes.length).to eq(0)
-        expect(Income.all.length).to eq(0)
-        DoughFinBeSchema.execute(
-        query_string,
-        context: context,
-        variables: variables
-        )
-        require 'pry'; binding.pry
-        expect(Income.all.length).to eq(1)
-        #expect(user.incomes.length).to eq(1)
-        #require 'pry'; binding.pry
-      end
-      # post "/graphql", params: { query: mutation }
-      # json_response = JSON.parse(response.body)
-    # end
+      refetch_user = User.find(user.id)
+
+      expect(data).to have_key(:user)
+      expect(data).to have_key(:source)
+      expect(data).to have_key(:amount)
+      expect(data).to have_key(:date)
+
+      expect(data[:user]).to have_key(:id)
+      expect(data[:user][:id].to_i).to eq(user.id)
+
+      expect(data[:source]).to eq("Paycheck")
+      expect(data[:amount]).to eq(2312.13)
+      expect(data[:date]).to eq("2023-12-15")
+
+      expect(Income.all.length).to eq(1)
+      expect(refetch_user.incomes.length).to eq(1)
+    end
   end
 end
