@@ -78,5 +78,6 @@ test:
 # for a full overview on how database connection configuration can be specified.
 #
 production:
+  <<: *default
   url: <%= ENV["DATABASE_URL"] %>
   database: dough_fin_be_production
