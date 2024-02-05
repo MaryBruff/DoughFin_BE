@@ -19,7 +19,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_31_221942) do
     t.string "vendor"
     t.string "category"
     t.float "amount"
-    t.string "status", default: "projected"
     t.date "date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

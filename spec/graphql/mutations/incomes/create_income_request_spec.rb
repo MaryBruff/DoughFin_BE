@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Mutations::CreateIncome, type: :request do
   describe "resolve" do
@@ -17,8 +17,8 @@ RSpec.describe Mutations::CreateIncome, type: :request do
           }
         }
       GQL
-    
-      post '/graphql', params: { query: mutation }
+
+      post "/graphql", params: {query: mutation}
       json_response = JSON.parse(response.body, symbolize_names: true)
       data = json_response[:data][:createIncome]
 

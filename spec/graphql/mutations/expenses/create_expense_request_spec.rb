@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Mutations::CreateExpense, type: :request do
   describe "resolve" do
@@ -9,18 +9,17 @@ RSpec.describe Mutations::CreateExpense, type: :request do
 
       mutation = <<~GQL
         mutation {
-          createExpense(input: {userId: #{user.id}, vendor: "Apple", category: "Electronics", amount: 3500.00, status: "actual", date: "2024-02-02"}) {
+          createExpense(input: {userId: #{user.id}, vendor: "Apple", category: "Electronics", amount: 3500.00, date: "2024-02-02"}) {
             userId
             vendor
             category
             amount
-            status
             date
           }
         }
       GQL
-    
-      post '/graphql', params: { query: mutation }
+
+      post "/graphql", params: {query: mutation}
       json_response = JSON.parse(response.body, symbolize_names: true)
       data = json_response[:data][:createExpense]
 
@@ -33,9 +32,7 @@ RSpec.describe Mutations::CreateExpense, type: :request do
       expect(data).to have_key(:category)
       expect(data[:category]).to eq("Electronics")
       expect(data).to have_key(:amount)
-      expect(data[:amount]).to eq(3500.0)
-      expect(data).to have_key(:status)
-      expect(data[:status]).to eq("actual")
+      expect(data[:amount]).to eq(3500.00)
       expect(data).to have_key(:date)
       expect(data[:date]).to eq("2024-02-02")
     end
