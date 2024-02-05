@@ -16,8 +16,7 @@ Expense.create!(
   amount: 8000.00,
   user_id: u1.id
 )
-Expense.create!(
-  vendor: "ShhShh Hitman, LLC",
+Budget.create!(
   category: "Business Incidentals",
   amount: 10000.00,
   user_id: u1.id

@@ -2,6 +2,7 @@
 
 module Types
   class MutationType < Types::BaseObject
+    field :budget, mutation: Mutations::Budget
     field :delete_expense, mutation: Mutations::DeleteExpense
     field :delete_income, mutation: Mutations::DeleteIncome
     field :create_income, mutation: Mutations::CreateIncome
