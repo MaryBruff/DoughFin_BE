@@ -16,6 +16,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_31_221942) do
 
   create_table "expenses", force: :cascade do |t|
     t.bigint "user_id", null: false
+    t.string "vendor"
     t.string "category"
     t.float "amount"
     t.string "nature", default: "projected"

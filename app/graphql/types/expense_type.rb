@@ -5,6 +5,7 @@ module Types
     field :id, ID, null: false
     field :user_id, Integer, null: false
     field :user, Types::UserType, null: false
+    field :vendor, String, null: true
     field :category, String, null: true
     field :amount, Float, null: true
     field :nature, String, null: true
