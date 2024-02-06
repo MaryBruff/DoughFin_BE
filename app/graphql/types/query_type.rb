@@ -38,8 +38,5 @@ module Types
     def test_field
       "Hello World!"
     end
-
-    field :total_income, resolver: Queries::TotalIncomeQuery
-    field :total_expense, resolver: Queries::TotalExpenseQuery
   end
 end
