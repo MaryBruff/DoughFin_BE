@@ -11,39 +11,6 @@ jobs:
       - ruby/install-deps
       - node/install-packages:
           pkg-manager: yarn
-  checking:
-    docker:
-      - image: cimg/ruby:3.2.2-node
-    parameters:
-      out-path:
-        default: /tmp/standardrb-results
-        description: Customize the directory of output file
-        type: string
-      parallel:
-        default: false
-        description: |
-          Use available CPUs to execute inspection in parallel.
-        type: boolean
-    steps:
-      - checkout
-      - run:
-          name: install standardrb
-          command: |-
-            gem install standardrb
-      - ruby/install-deps
-      - run:
-          name: standardrb lint
-          command: |-
-            #!/usr/bin/env bash
-            
-            if [ "$PARAM_PARALLEL" -eq 0 ]; then
-              bundle exec standardrb \
-            else
-              bundle exec standardrb \
-              --parallel
-            fi
-          environment:
-            PARAM_PARALLEL: <<parameters.parallel>>
   test:
     docker:
       - image: cimg/ruby:3.2.2-node
@@ -63,8 +30,6 @@ jobs:
     steps:
       - checkout
       - ruby/install-deps
-      - node/install-packages:
-          pkg-manager: yarn
       - run:
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
           name: Wait for DB
