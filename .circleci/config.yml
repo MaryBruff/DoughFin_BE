@@ -15,9 +15,6 @@ jobs:
     docker:
       - image: cimg/ruby:3.2.2-node
     parameters:
-      check-path:
-        default: .
-        type: string
       out-path:
         default: /tmp/standardrb-results
         description: Customize the directory of output file
@@ -40,13 +37,12 @@ jobs:
             #!/usr/bin/env bash
             
             if [ "$PARAM_PARALLEL" -eq 0 ]; then
-              bundle exec standardrb "$PARAM_CHECK_PATH" \
+              bundle exec standardrb \
             else
-              bundle exec standardrb "$PARAM_CHECK_PATH" \
+              bundle exec standardrb \
               --parallel
             fi
           environment:
-            PARAM_CHECK_PATH: <<parameters.check-path>>
             PARAM_PARALLEL: <<parameters.parallel>>
   test:
     docker:
