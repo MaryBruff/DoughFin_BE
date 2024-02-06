@@ -38,5 +38,7 @@ module Types
     def test_field
       "Hello World!"
     end
+
+    field :total_income, resolver: Queries::UserQuery
   end
 end
