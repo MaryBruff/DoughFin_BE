@@ -6,14 +6,10 @@ class Mutations::UpdateBudget < Mutations::BaseMutation
 
   field :budget, Types::BudgetType, null: true
 
-  def resolve(input)
-    budget_id = input[:id]
-    month = input[:month]
-    category = input[:category]
-    amount = input[:amount]
-
-   budget = Budget.find(budget_id)
-    budget.update(month: month, category: category, amount: amount)
+  def resolve(id:, **attributes)
+    budget = Budget.find(id)
+    
+    budget.update(attributes.compact)
     { budget: budget }
   end
 end
