@@ -50,6 +50,7 @@ jobs:
     docker:
       - image: cimg/ruby:3.2.2-node
     steps:
+      - checkout
       - ruby/install-deps
       - attach_workspace:
           at: /tmp
