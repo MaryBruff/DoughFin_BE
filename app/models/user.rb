@@ -6,7 +6,7 @@ class User < ApplicationRecord
   validates :username, presence: true
   validates :email, presence: true, uniqueness: true
 
-  def transactions
+  def transactions # finds all incomes and transactions for a user with type alias, orders by date descending
     transactions = User.find_by_sql("SELECT id, 
                                            amount, 
                                            source, 
