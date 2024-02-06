@@ -35,11 +35,11 @@ jobs:
         type: boolean
     steps:
       - checkout
-      - ruby/install-deps
       - run:
           name: install standardrb
           command: |-
             gem install standardrb
+      - ruby/install-deps
       - run:
           name: standardrb lint
           command: |-
