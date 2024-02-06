@@ -39,9 +39,9 @@ jobs:
       - run:
           name: show results
           command: |
-            find ./ -name "results.xml"
+            ls -la /tmp/test-results/rspec/
       - store_test_results:
-          path: /temp/test-results/rspec/
+          path: /tmp/test-results/rspec/
       - codecov/upload
 workflows:
   build_and_test:
