@@ -14,12 +14,31 @@ jobs:
   checking:
     docker:
       - image: cimg/ruby:3.2.2-node
+    parameters:
+      app-dir:
+        default: .
+        description: >
+          Path to the directory containing your Gemfile file. Not needed if Gemfile
+          lives in the root.
+        type: string
+      check-path:
+        default: .
+        type: string
+      out-path:
+        default: /tmp/standardrb-results
+        description: Customize the directory of output file
+        type: string
+      parallel:
+        default: false
+        description: |
+          Use available CPUs to execute inspection in parallel.
+        type: boolean
     steps:
       - checkout
       - ruby/install-deps
       - run:
           name: standardrb lint
-          command: |
+          command: |-
             #!/usr/bin/env bash
             
             mkdir -p "$PARAM_OUT_PATH"
@@ -36,10 +55,8 @@ jobs:
             fi
           environment:
             PARAM_CHECK_PATH: <<parameters.check-path>>
-            PARAM_FORMAT: <<parameters.format>>
             PARAM_OUT_PATH: <<parameters.out-path>>
             PARAM_PARALLEL: <<parameters.parallel>>
-            name: <<parameters.label>>
             working_directory: <<parameters.app-dir>>
   test:
     docker:
