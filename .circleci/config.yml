@@ -17,9 +17,30 @@ jobs:
     steps:
       - checkout
       - ruby/install-deps
-      - ruby/rubocop-check:
-          format: progress
-          label: Inspecting with Rubocop
+      - run:
+          name: standardrb lint
+          ommand: |-
+            #!/usr/bin/env bash
+            
+            mkdir -p "$PARAM_OUT_PATH"
+            
+            if [ "$PARAM_PARALLEL" -eq 0 ]; then
+              bundle exec standardrb "$PARAM_CHECK_PATH" \
+              --out $"$PARAM_OUT_PATH"/check-results.xml \
+              --format "$PARAM_FORMAT"
+            else
+              bundle exec standardrb "$PARAM_CHECK_PATH" \
+              --out $"$PARAM_OUT_PATH"/check-results.xml \
+              --format "$PARAM_FORMAT" \
+              --parallel
+            fi
+            environment:
+            PARAM_CHECK_PATH: <<parameters.check-path>>
+            PARAM_FORMAT: <<parameters.format>>
+            PARAM_OUT_PATH: <<parameters.out-path>>
+            PARAM_PARALLEL: <<parameters.parallel>>
+            name: <<parameters.label>>
+            working_directory: <<parameters.app-dir>>
   test:
     docker:
       - image: cimg/ruby:3.2.2-node
