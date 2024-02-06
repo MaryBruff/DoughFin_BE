@@ -9,7 +9,7 @@ class Mutations::CreateBudget < Mutations::BaseMutation
   field :category, String, null: true
   field :amount, Float, null: true
 
-  def resolve(input)
+  def resolve(input) # finds user, creates budget for user with input parameters
     user_id = input[:userId]
     month = input[:month]
     category = input[:category]

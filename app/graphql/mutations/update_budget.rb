@@ -6,9 +6,9 @@ class Mutations::UpdateBudget < Mutations::BaseMutation
 
   field :budget, Types::BudgetType, null: true
 
-  def resolve(id:, **attributes)
+  def resolve(id:, **attributes) # finds budget, updates budget, returns budget
     budget = Budget.find(id)
-    
+
     budget.update(attributes.compact)
     { budget: budget }
   end
