@@ -15,12 +15,6 @@ jobs:
     docker:
       - image: cimg/ruby:3.2.2-node
     parameters:
-      app-dir:
-        default: .
-        description: >
-          Path to the directory containing your Gemfile file. Not needed if Gemfile
-          lives in the root.
-        type: string
       check-path:
         default: .
         type: string
@@ -49,17 +43,14 @@ jobs:
             
             if [ "$PARAM_PARALLEL" -eq 0 ]; then
               bundle exec standardrb "$PARAM_CHECK_PATH" \
-              --out $"$PARAM_OUT_PATH"/check-results.xml \
             else
               bundle exec standardrb "$PARAM_CHECK_PATH" \
-              --out $"$PARAM_OUT_PATH"/check-results.xml \
               --parallel
             fi
           environment:
             PARAM_CHECK_PATH: <<parameters.check-path>>
             PARAM_OUT_PATH: <<parameters.out-path>>
             PARAM_PARALLEL: <<parameters.parallel>>
-            working_directory: <<parameters.app-dir>>
   test:
     docker:
       - image: cimg/ruby:3.2.2-node
