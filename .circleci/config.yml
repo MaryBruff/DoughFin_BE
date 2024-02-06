@@ -25,7 +25,7 @@ jobs:
       PGPASSWORD: ''
       PGUSER: dough_fin
       RAILS_ENV: test
-    parallelism: 1
+    parallelism: 0
     steps:
       - checkout
       - ruby/install-deps
