@@ -1,6 +1,7 @@
 module Types
   class UserType < Types::BaseObject
     field :id, ID, null: false
+    field :transactions, [Types::TransactionType], null: true
     field :username, String, null: false
     field :email, String, null: false
     field :incomes, [Types::IncomeType], null: true
