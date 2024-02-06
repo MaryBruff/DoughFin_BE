@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_04_223953) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_06_025308) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -19,7 +19,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_04_223953) do
     t.string "month"
     t.float "amount"
     t.string "category"
-    t.string "flow"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_budgets_on_user_id"
