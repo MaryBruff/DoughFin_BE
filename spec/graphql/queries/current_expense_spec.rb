@@ -12,7 +12,7 @@ RSpec.describe Queries::TotalExpenseQuery, type: :request do
       user.expenses.create(vendor: "Previous Month Vendor", category: "TestCategory", amount: 100.0, date: "2024-01-15", created_at: "2024-01-15", updated_at: "2024-01-15")
 
       expect(user.expenses.length).to eq(6)
-      
+
       query = <<~GQL
         query { 
           user(email: "#{user.email}") {
@@ -23,7 +23,7 @@ RSpec.describe Queries::TotalExpenseQuery, type: :request do
           }
         }
       GQL
-      
+
       post "/graphql", params: {query: query}
       json_response = JSON.parse(response.body, symbolize_names: true)
       data = json_response[:data]

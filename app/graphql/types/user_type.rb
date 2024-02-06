@@ -15,10 +15,10 @@ module Types
 
     def currentIncome
       current_month_income = object.incomes.where("date >= ? AND date <= ?", Date.today.at_beginning_of_month, Date.today.at_end_of_month).sum(:amount)
-      
+
       previous_month_income = object.incomes.where("date >= ? AND date <= ?", 1.month.ago.at_beginning_of_month, 1.month.ago.at_end_of_month).sum(:amount)
 
-      pct_change =(previous_month_income.zero? ? 0 : (current_month_income - previous_month_income) / previous_month_income.to_f) * 100
+      pct_change = (previous_month_income.zero? ? 0 : (current_month_income - previous_month_income) / previous_month_income.to_f) * 100
 
       {
         amount: current_month_income,
@@ -28,10 +28,10 @@ module Types
 
     def currentExpense
       current_month_expense = object.expenses.where("date >= ? AND date <= ?", Date.today.at_beginning_of_month, Date.today.at_end_of_month).sum(:amount)
-      
+
       previous_month_expense = object.expenses.where("date >= ? AND date <= ?", 1.month.ago.at_beginning_of_month, 1.month.ago.at_end_of_month).sum(:amount)
 
-      pct_change =(previous_month_expense.zero? ? 0 : (current_month_expense - previous_month_expense) / previous_month_expense.to_f) * 100
+      pct_change = (previous_month_expense.zero? ? 0 : (current_month_expense - previous_month_expense) / previous_month_expense.to_f) * 100
 
       {
         amount: current_month_expense,
