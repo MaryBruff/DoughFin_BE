@@ -4,7 +4,7 @@ module Queries
 
     type Float, null: false
 
-    def resolve(user_id:)
+    def resolve(user_id)
       user = User.find(user_id)
       user.expenses.sum(:amount)
     end
