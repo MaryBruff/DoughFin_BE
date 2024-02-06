@@ -48,6 +48,7 @@ group :development, :test do
   gem "faker"
   gem "shoulda-matchers"
   gem "simplecov"
+  gem "rspec_junit_formatter"
 end
 
 group :development do
