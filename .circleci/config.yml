@@ -37,8 +37,12 @@ jobs:
           name: Database setup
       - ruby/rspec-test:
           include: spec/**/*_spec.rb
+      - run:
+          command: |
+            ls
+            ls /tmp/test-results/rspec
       - codecov/upload:
-          file: ./tmp/test-results/rspec/results.xml
+          file: /tmp/test-results/rspec
 workflows:
   build_and_test:
     jobs:
