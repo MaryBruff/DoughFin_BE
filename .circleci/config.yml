@@ -40,8 +40,7 @@ jobs:
           name: get working dir
           command: |
             pwd
-      - codecov/upload:
-          file: /tmp/test-results/rspec/results.xml
+      - codecov/upload
 workflows:
   build_and_test:
     jobs:
