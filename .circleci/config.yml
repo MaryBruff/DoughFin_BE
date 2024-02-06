@@ -37,6 +37,7 @@ jobs:
           name: Database setup
       - ruby/rspec-test:
           include: spec/**/*_spec.rb
+          out-path: ./codecov/
       - codecov/upload
 workflows:
   build_and_test:
