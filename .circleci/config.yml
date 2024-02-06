@@ -38,11 +38,13 @@ jobs:
       - ruby/rspec-test:
           include: spec/**/*_spec.rb
       - run:
+          name: Verify presence of coverage report
           command: |
-            ls
-            ls /tmp/test-results/rspec
+            ls -la /tmp/test-results/rspec
+            # Or, to search from root:
+            find / -name "results.xml" 2>/dev/null
       - codecov/upload:
-          file: /tmp/test-results/rspec
+          file: /home/circleci/project/tmp/test-results/rspec
 workflows:
   build_and_test:
     jobs:
