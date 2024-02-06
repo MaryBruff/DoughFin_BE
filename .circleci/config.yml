@@ -51,7 +51,7 @@ jobs:
       - image: cimg/ruby:3.2.2-node
     steps:
       - attach_workspace:
-          at: /tmp
+          at: /tmp/test-results/rspec
       - run:
           name: show results
           command: |
