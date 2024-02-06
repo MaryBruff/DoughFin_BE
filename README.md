@@ -1,3 +1,5 @@
+[![CircleCI](https://dl.circleci.com/status-badge/img/circleci/WXEwfuoM597QozGdHetyDZ/Du1HZAdf61CK4fAZiD2Tdm/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/circleci/WXEwfuoM597QozGdHetyDZ/Du1HZAdf61CK4fAZiD2Tdm/tree/main)
+[![codecov](https://codecov.io/gh/DoughFin/DoughFin_BE/graph/badge.svg?token=QEGE6K2HA9)](https://codecov.io/gh/DoughFin/DoughFin_BE)
 # DoughFin_BE
 
 ## Introduction
