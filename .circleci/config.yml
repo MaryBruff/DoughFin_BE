@@ -19,7 +19,7 @@ jobs:
       - ruby/install-deps
       - run:
           name: standardrb lint
-          ommand: |-
+          command: |
             #!/usr/bin/env bash
             
             mkdir -p "$PARAM_OUT_PATH"
