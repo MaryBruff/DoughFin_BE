@@ -15,4 +15,32 @@ RSpec.describe User, type: :model do
     expect(user).to have_attributes(username: "moneybaggins")
     expect(user).to have_attributes(email: "moneybaggins@bigbanktakelilbank.doge")
   end
+
+  describe "instance methods" do
+    describe "#transactions" do
+      it "gets incomes and expenses for a user as transactions" do
+        user = create(:user)
+        user.expenses = create_list(:expense, 5)
+        user.incomes = create_list(:income, 5)
+        transactions = JSON.parse(user.transactions.to_json, symbolize_names: true)
+
+        transactions.each do |transaction|
+          expect(transaction).to have_key(:id)
+          expect(transaction[:id].to_i).to be_a Integer
+
+          expect(transaction).to have_key(:category)
+          expect(transaction[:category]).to be_a String
+
+          expect(transaction).to have_key(:amount)
+          expect(transaction[:amount]).to be_a Float
+
+          expect(transaction).to have_key(:date)
+          expect(transaction[:date]).to be_a String
+
+          expect(transaction).to have_key(:type)
+          expect(transaction[:type]).to be_a String
+        end
+      end
+    end
+  end
 end

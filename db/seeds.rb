@@ -25,7 +25,15 @@ Budget.create!(
   flow: "expense"
 )
 
-User.create!(username: "john_smith", email: "email@email.com")
-# 5.times do
-#   user.expenses.create!()
-# end
+user = User.create!(username: "john_smith", email: "email@email.com")
+user.expenses.create(amount: 100.0, date: "2024-02-05", category: "Office Supplies")
+user.expenses.create(amount: 200.0, date: "2024-02-03", category: "Utilities")
+user.expenses.create(amount: 150.0, date: "2024-02-01", category: "Marketing")
+user.expenses.create(amount: 300.0, date: "2024-02-02", category: "Rent")
+user.expenses.create(amount: 120.0, date: "2024-02-06", category: "Travel")
+
+user.incomes.create(amount: 5000.0, date: "2024-02-05", source: "Salary")
+user.incomes.create(amount: 1500.0, date: "2024-02-06", source: "Freelance Work")
+user.incomes.create(amount: 3000.0, date: "2024-02-03", source: "Investments")
+user.incomes.create(amount: 2000.0, date: "2024-02-02", source: "Bonus")
+user.incomes.create(amount: 1000.0, date: "2024-02-04", source: "Consulting Fee")

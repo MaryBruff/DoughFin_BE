@@ -1,5 +1,3 @@
-[![CircleCI](https://dl.circleci.com/status-badge/img/circleci/WXEwfuoM597QozGdHetyDZ/Du1HZAdf61CK4fAZiD2Tdm/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/circleci/WXEwfuoM597QozGdHetyDZ/Du1HZAdf61CK4fAZiD2Tdm/tree/main)
-[![codecov](https://codecov.io/gh/DoughFin/DoughFin_BE/graph/badge.svg?token=QEGE6K2HA9)](https://codecov.io/gh/DoughFin/DoughFin_BE)
 # DoughFin_BE
 
 ## Introduction
@@ -16,6 +14,7 @@ DoughFin is a user-friendly financial management app designed to help individual
 [Postman Environment](https://turing-school-of-software-and-design-student-plan-team-2.postman.co/workspace/8ddf4dac-97e4-442b-8e86-5b3d49e18134)
 
 ## Database Schema
+![Doughfin from DB Designer](https://github.com/DoughFin/DoughFin_BE/assets/25095319/9c9d6090-6a92-40bb-97b4-50d06c42b82a)
 
 ## GraphQl Contract
 ```markdown
@@ -57,6 +56,15 @@ type Mutation {
   # Add more mutations for updating and deleting records as needed
 }
 ```
+## Installation
+ensure you have `rails@3.2.2` installed<br>
+ensure you have `postgresql@14.0+` installed<br>
+exec `bundle install` from project root<br>
+exec `rails db:{drop,create,migrate,seed}` to initiate database<br>
+exec `rails server` to start local dev
+
+## Testing
+exec `bundle exec rspec` after you've installed the app.
 
 ## Acknowledgments
 Thank you to all the contributors who have helped shape DoughFin.
