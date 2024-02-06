@@ -34,7 +34,7 @@ jobs:
               --format "$PARAM_FORMAT" \
               --parallel
             fi
-            environment:
+          environment:
             PARAM_CHECK_PATH: <<parameters.check-path>>
             PARAM_FORMAT: <<parameters.format>>
             PARAM_OUT_PATH: <<parameters.out-path>>
