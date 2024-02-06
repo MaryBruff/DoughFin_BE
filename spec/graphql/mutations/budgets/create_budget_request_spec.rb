@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe Mutations::CreateBudget, type: :request do
   describe "resolve" do
-    it "successfully creates an budget" do
+    it "successfully creates a budget" do
       user = create(:user)
 
       expect(user.budgets.length).to eq(0)
