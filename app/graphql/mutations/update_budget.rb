@@ -10,6 +10,6 @@ class Mutations::UpdateBudget < Mutations::BaseMutation
     budget = Budget.find(id)
 
     budget.update(attributes.compact)
-    { budget: budget }
+    {budget: budget}
   end
 end

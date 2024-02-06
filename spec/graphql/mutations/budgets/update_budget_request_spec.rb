@@ -13,21 +13,21 @@ RSpec.describe Mutations::UpdateBudget, type: :request do
       expect(budget.amount).to_not eq(3500.00)
 
       mutation = <<~GQL
-      mutation {
-        updateBudget(input: {
-          id: #{budget.id}
-          month: "January"
-          category: "Electronics"
-          amount: 3500.00
-        }) {
-          budget {
-            id
-            month
-            category
-            amount
+        mutation {
+          updateBudget(input: {
+            id: #{budget.id}
+            month: "January"
+            category: "Electronics"
+            amount: 3500.00
+          }) {
+            budget {
+              id
+              month
+              category
+              amount
+            }
           }
         }
-      }
       GQL
 
       post "/graphql", params: {query: mutation}
@@ -53,20 +53,20 @@ RSpec.describe Mutations::UpdateBudget, type: :request do
       expect(budget.amount).to_not eq(3500.00)
 
       mutation = <<~GQL
-      mutation {
-        updateBudget(input: {
-          id: #{budget.id}
-          month: "January"
-          category: "Electronics"
-        }) {
-          budget {
-            id
-            month
-            category
-            amount
+        mutation {
+          updateBudget(input: {
+            id: #{budget.id}
+            month: "January"
+            category: "Electronics"
+          }) {
+            budget {
+              id
+              month
+              category
+              amount
+            }
           }
         }
-      }
       GQL
 
       post "/graphql", params: {query: mutation}
