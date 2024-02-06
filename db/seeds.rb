@@ -17,6 +17,7 @@ Expense.create!(
   user_id: u1.id
 )
 Budget.create!(
+  month: "2024-02",
   category: "Business Incidentals",
   amount: 10000.00,
   user_id: u1.id
