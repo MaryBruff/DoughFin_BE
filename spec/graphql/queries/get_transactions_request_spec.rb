@@ -14,7 +14,7 @@ RSpec.describe "Get Transactions", type: :request do
               id
               amount
               date
-              source
+              category
               type
             }
           }
@@ -32,8 +32,8 @@ RSpec.describe "Get Transactions", type: :request do
       expect(transaction).to have_key(:id)
       expect(transaction[:id].to_i).to be_a Integer
       
-      expect(transaction).to have_key(:source)
-      expect(transaction[:source]).to be_a String
+      expect(transaction).to have_key(:category)
+      expect(transaction[:category]).to be_a String
 
       expect(transaction).to have_key(:amount)
       expect(transaction[:amount]).to be_a Float

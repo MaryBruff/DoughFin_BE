@@ -9,7 +9,7 @@ class User < ApplicationRecord
   def transactions # finds all incomes and transactions for a user with type alias, orders by date descending
     transactions = User.find_by_sql("SELECT id, 
                                            amount, 
-                                           source, 
+                                           source AS category, 
                                            date, 
                                            'income' AS type FROM incomes WHERE user_id = #{id} 
                                     UNION 
