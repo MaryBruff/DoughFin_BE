@@ -18,6 +18,6 @@ class User < ApplicationRecord
                                            category, 
                                            date, 
                                            'expense' AS type FROM expenses WHERE user_id = #{id} 
-                                    ORDER BY date")
+                                    ORDER BY date DESC")
   end
 end
