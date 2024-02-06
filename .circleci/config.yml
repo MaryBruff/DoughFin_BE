@@ -10,6 +10,28 @@ jobs:
     steps:
       - checkout
       - ruby/install-deps
+      - run: pwd
+      - run: mkdir -p /tmp/test-results/rspec
+      - run: echo 'hello world' > /tmp/test-results/rspec/results.xml
+      - run: find / -name "results.xml"
+      - persist_to_workspace:
+          root: /tmp
+          paths: test-results/rspec
+  access_file:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - attach_workspace:
+          at: /tmp/test-results
+      - checkout
+      - run: |
+          if [[ `cat /tmp/test-results/rspec/results.xml` == "hello world" ]]; then
+            echo "It worked!";
+          else
+            echo "Nope!"; exit 1
+          fi
+
+
   test:
     docker:
       - image: cimg/ruby:3.2.2-node
@@ -65,10 +87,13 @@ workflows:
   build_and_test:
     jobs:
       - build
-      - test:
+#      - test:
+#          requires:
+#            - build
+#      - upload_cov:
+#          requires:
+#            - test
+      - access_file:
           requires:
             - build
-      - upload_cov:
-          requires:
-            - test
 
