@@ -45,6 +45,17 @@ jobs:
       - codecov/upload:
           file: /tmp/test-results/rspec/results.xml
           cli_args: -v
+  upload_cov:
+    docker:
+      - image: cimg/ruby:3.2.2-node
+    steps:
+      - run:
+          name: show results
+          command: |
+            ls -la /tmp/test-results/rspec/
+      - codecov/upload:
+          file: /tmp/test-results/rspec/results.xml
+          cli_args: -v
 workflows:
   build_and_test:
     jobs:
@@ -52,4 +63,7 @@ workflows:
       - test:
           requires:
             - build
+      - upload_cov:
+          requires:
+            - test
 
