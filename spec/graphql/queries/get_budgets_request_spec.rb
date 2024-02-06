@@ -8,6 +8,7 @@ RSpec.describe "Get Budgets", type: :request do
     query =  <<~GQL
           query GetBudgets($email: String!) {
             user(email: $email) {
+                id
                 budgets {
                             id
                             month
