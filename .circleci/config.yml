@@ -38,11 +38,9 @@ jobs:
       - ruby/rspec-test:
           include: spec/**/*_spec.rb
       - run:
-          name: Verify presence of coverage report
+          name: get working dir
           command: |
-            ls -la /tmp/test-results/rspec
-            ls -la ..
-            ls -la ../..
+            pwd
       - codecov/upload:
           file: /home/circleci/project/tmp/test-results/rspec/results.xml
 workflows:
