@@ -38,7 +38,7 @@ jobs:
       - ruby/rspec-test:
           include: spec/**/*_spec.rb
       - codecov/upload:
-          file: /tmp/test-results/rspec/results.xml
+          file: ./tmp/test-results/rspec/results.xml
 workflows:
   build_and_test:
     jobs:
