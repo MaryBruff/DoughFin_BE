@@ -14,7 +14,7 @@ DoughFin is a user-friendly financial management app designed to help individual
 [Postman Environment](https://turing-school-of-software-and-design-student-plan-team-2.postman.co/workspace/8ddf4dac-97e4-442b-8e86-5b3d49e18134)
 
 ## Database Schema
-<img width="750" alt="Screenshot 2024-02-02 at 16 09 48" src="https://github.com/DoughFin/DoughFin_BE/assets/25095319/ecd61e9c-aa9a-4734-8326-73826470f102">
+![Doughfin from DB Designer](https://github.com/DoughFin/DoughFin_BE/assets/25095319/9c9d6090-6a92-40bb-97b4-50d06c42b82a)
 
 ## GraphQl Contract
 ```markdown
@@ -56,6 +56,15 @@ type Mutation {
   # Add more mutations for updating and deleting records as needed
 }
 ```
+## Installation
+ensure you have `rails@3.2.2` installed<br>
+ensure you have `postgresql@14.0+` installed<br>
+exec `bundle install` from project root<br>
+exec `rails db:{drop,create,migrate,seed}` to initiate database<br>
+exec `rails server` to start local dev
+
+## Testing
+exec `bundle exec rspec` after you've installed the app.
 
 ## Acknowledgments
 Thank you to all the contributors who have helped shape DoughFin.
