@@ -42,7 +42,9 @@ jobs:
             ls -la /tmp/test-results/rspec/
       - store_test_results:
           path: /tmp/test-results/rspec/
-      - codecov/upload
+      - codecov/upload:
+          file: /tmp/test-results/rspec/results.xml
+          cli_args: -v
 workflows:
   build_and_test:
     jobs:
