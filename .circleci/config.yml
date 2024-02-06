@@ -37,6 +37,10 @@ jobs:
       - checkout
       - ruby/install-deps
       - run:
+          name: install standardrb
+          command: |-
+            gem install standardrb
+      - run:
           name: standardrb lint
           command: |-
             #!/usr/bin/env bash
