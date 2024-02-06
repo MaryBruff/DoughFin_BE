@@ -4,16 +4,16 @@ module Types
     field :transactions, [Types::TransactionType], null: true
     field :username, String, null: false
     field :email, String, null: false
-    field :current_income, Types::CurrentIncomeType, null: true do
+    field :current_incomes, Types::CurrentIncomesType, null: true do
       description "Returns the current income and percent change"
     end
-    field :current_expense, Types::CurrentExpenseType, null: true do
+    field :current_expenses, Types::CurrentExpensesType, null: true do
       description "Returns the current expense and percent change"
     end
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
 
-    def current_income
+    def current_incomes
       current_month_income = object.incomes.where("date >= ? AND date <= ?", Date.today.at_beginning_of_month, Date.today.at_end_of_month).sum(:amount)
 
       previous_month_income = object.incomes.where("date >= ? AND date <= ?", 1.month.ago.at_beginning_of_month, 1.month.ago.at_end_of_month).sum(:amount)
@@ -26,7 +26,7 @@ module Types
       }
     end
 
-    def current_expense
+    def current_expenses
       current_month_expense = object.expenses.where("date >= ? AND date <= ?", Date.today.at_beginning_of_month, Date.today.at_end_of_month).sum(:amount)
 
       previous_month_expense = object.expenses.where("date >= ? AND date <= ?", 1.month.ago.at_beginning_of_month, 1.month.ago.at_end_of_month).sum(:amount)

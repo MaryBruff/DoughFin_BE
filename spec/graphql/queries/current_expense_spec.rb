@@ -16,7 +16,7 @@ RSpec.describe Queries::TotalExpenseQuery, type: :request do
       query = <<~GQL
         query { 
           user(email: "#{user.email}") {
-            currentExpense {
+            currentExpenses {
               amount
               pctChange
             }
@@ -29,11 +29,11 @@ RSpec.describe Queries::TotalExpenseQuery, type: :request do
       data = json_response[:data]
 
       expect(data).to have_key(:user)
-      expect(data[:user]).to have_key(:currentExpense)
-      expect(data[:user][:currentExpense]).to have_key(:amount)
-      expect(data[:user][:currentExpense][:amount]).to eq(500.0)
-      expect(data[:user][:currentExpense]).to have_key(:pctChange)
-      expect(data[:user][:currentExpense][:pctChange]).to eq(400.0)
+      expect(data[:user]).to have_key(:currentExpenses)
+      expect(data[:user][:currentExpenses]).to have_key(:amount)
+      expect(data[:user][:currentExpenses][:amount]).to eq(500.0)
+      expect(data[:user][:currentExpenses]).to have_key(:pctChange)
+      expect(data[:user][:currentExpenses][:pctChange]).to eq(400.0)
     end
   end
 end

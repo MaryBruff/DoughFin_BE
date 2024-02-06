@@ -1,5 +1,5 @@
 module Types
-  class CurrentExpenseType < Types::BaseObject
+  class CurrentExpensesType < Types::BaseObject
     field :amount, Float, null: true
     field :pctChange, Float, null: true
   end
