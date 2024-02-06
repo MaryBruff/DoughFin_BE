@@ -26,11 +26,14 @@ RSpec.describe Queries::TotalIncomeQuery, type: :request do
       
       post "/graphql", params: {query: query}
       json_response = JSON.parse(response.body, symbolize_names: true)
-      require 'pry'; binding.pry
       data = json_response[:data]
 
-      expect(data).to have_key(:totalIncome)
-      expect(data[:totalIncome]).to eq(user.incomes.sum(&:amount))
+      expect(data).to have_key(:user)
+      expect(data[:user]).to have_key(:currentIncome)
+      expect(data[:user][:currentIncome]).to have_key(:amount)
+      expect(data[:user][:currentIncome][:amount]).to eq(500.0)
+      expect(data[:user][:currentIncome]).to have_key(:pctChange)
+      expect(data[:user][:currentIncome][:pctChange]).to eq(400.0)
     end
   end
 end
