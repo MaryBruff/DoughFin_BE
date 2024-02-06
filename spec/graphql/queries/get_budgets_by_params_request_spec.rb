@@ -6,8 +6,8 @@ RSpec.describe "Get Budgets", type: :request do
     user.budgets = create_list(:budget, 5, month: "2024-02")
    
     query =  <<~GQL
-              query GetBudgetsByParams($month: String!, $category: String!, $userId: ID!) {
-                user(id: $userId) {
+              query GetBudgetsByParams($month: String!, $category: String!, $email: String!) {
+                user(email: $email) {
                     budgets(month: $month, category: $category) {
                         id
                         month
@@ -19,12 +19,14 @@ RSpec.describe "Get Budgets", type: :request do
       GQL
 
     post "/graphql", params: {query: query, variables: {
-                                                        "userId": "1",
+                                                        "email": "moneybaggins@bigbanktakelilbank.doge",
                                                         "category": "Groceries",
                                                         "month": "2024-02"}}
 
     json = JSON.parse(response.body, symbolize_names: true)
     data = json[:data]
+
+    binding.pry
 
     expect(data[:user][:id]).to eq(user.id.to_s)
 
