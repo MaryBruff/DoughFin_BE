@@ -44,7 +44,7 @@ jobs:
             ls -la ..
             ls -la ../..
       - codecov/upload:
-          file: /home/circleci/project/tmp/test-results/rspec
+          file: /home/circleci/project/tmp/test-results/rspec/results.xml
 workflows:
   build_and_test:
     jobs:
