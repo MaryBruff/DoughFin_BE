@@ -41,6 +41,7 @@ jobs:
           name: get working dir
           command: |
             pwd
+            find ./ -name "results.xml"
       - codecov/upload:
           file: /home/circleci/project/tmp/test-results/rspec/results.xml
 workflows:
