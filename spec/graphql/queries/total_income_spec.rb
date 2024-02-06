@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Queries::UserQuery, type: :request do
+RSpec.describe Queries::TotalIncomeQuery, type: :request do
   describe "resolve" do
     it "successfully gets the sum of all incomes for a user" do
       user = create(:user)

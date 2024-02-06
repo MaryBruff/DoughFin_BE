@@ -39,6 +39,7 @@ module Types
       "Hello World!"
     end
 
-    field :total_income, resolver: Queries::UserQuery
+    field :total_income, resolver: Queries::TotalIncomeQuery
+    field :total_expense, resolver: Queries::TotalExpenseQuery
   end
 end
