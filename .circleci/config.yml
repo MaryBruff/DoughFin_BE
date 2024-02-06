@@ -9,8 +9,6 @@ jobs:
     steps:
       - checkout
       - ruby/install-deps
-      - node/install-packages:
-          pkg-manager: yarn
   test:
     docker:
       - image: cimg/ruby:3.2.2-node
@@ -42,7 +40,6 @@ workflows:
   build_and_test:
     jobs:
       - build
-      - checking
       - test:
           requires:
             - build
