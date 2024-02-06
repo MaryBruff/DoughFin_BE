@@ -25,7 +25,7 @@ jobs:
       PGPASSWORD: ''
       PGUSER: dough_fin
       RAILS_ENV: test
-    parallelism: 3
+    parallelism: 1
     steps:
       - checkout
       - ruby/install-deps
@@ -41,9 +41,8 @@ jobs:
           name: get working dir
           command: |
             pwd
-            find ./ -name "results.xml"
       - codecov/upload:
-          file: /home/circleci/project/tmp/test-results/rspec/results.xml
+          file: /tmp/test-results/rspec/results.xml
 workflows:
   build_and_test:
     jobs:
