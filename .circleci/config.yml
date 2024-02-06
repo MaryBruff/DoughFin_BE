@@ -41,8 +41,8 @@ jobs:
           name: Verify presence of coverage report
           command: |
             ls -la /tmp/test-results/rspec
-            # Or, to search from root:
-            find / -name "results.xml" 2>/dev/null
+            ls -la ..
+            ls -la ../..
       - codecov/upload:
           file: /home/circleci/project/tmp/test-results/rspec
 workflows:
