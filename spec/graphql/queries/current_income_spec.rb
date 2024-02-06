@@ -4,12 +4,12 @@ RSpec.describe Queries::TotalIncomeQuery, type: :request do
   describe "resolve" do
     it "successfully gets the sum of all incomes for a user" do
       user = create(:user)
-      user.incomes.create(source: "Current Month 1", amount: 100.0, date: "2024-02-06", created_at: "2024-02-06", updated_at: "2024-02-06")
-      user.incomes.create(source: "Current Month 2", amount: 100.0, date: "2024-02-06", created_at: "2024-02-06", updated_at: "2024-02-06")
-      user.incomes.create(source: "Current Month 3", amount: 100.0, date: "2024-02-06", created_at: "2024-02-06", updated_at: "2024-02-06")
-      user.incomes.create(source: "Current Month 4", amount: 100.0, date: "2024-02-06", created_at: "2024-02-06", updated_at: "2024-02-06")
-      user.incomes.create(source: "Current Month 5", amount: 100.0, date: "2024-02-06", created_at: "2024-02-06", updated_at: "2024-02-06")
-      user.incomes.create(source: "Previous Source", amount: 100.0, date: "2024-01-15", created_at: "2024-01-15", updated_at: "2024-01-15")
+      user.incomes.create(source: "Current Month 1", amount: 100.0, date: "2024-02-06")
+      user.incomes.create(source: "Current Month 2", amount: 100.0, date: "2024-02-06")
+      user.incomes.create(source: "Current Month 3", amount: 100.0, date: "2024-02-06")
+      user.incomes.create(source: "Current Month 4", amount: 100.0, date: "2024-02-06")
+      user.incomes.create(source: "Current Month 5", amount: 100.0, date: "2024-02-06")
+      user.incomes.create(source: "Previous Source", amount: 100.0, date: "2024-01-15")
 
       expect(user.incomes.length).to eq(6)
 
