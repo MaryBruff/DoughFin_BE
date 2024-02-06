@@ -37,9 +37,11 @@ jobs:
       - ruby/rspec-test:
           include: spec/**/*_spec.rb
       - run:
-          name: get working dir
+          name: show results
           command: |
-            pwd
+            find ./ -name "results.xml"
+      - store_test_results:
+          path: /temp/test-results/rspec/
       - codecov/upload
 workflows:
   build_and_test:
