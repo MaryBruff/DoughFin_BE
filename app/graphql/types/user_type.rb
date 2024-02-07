@@ -1,7 +1,7 @@
 module Types
   class UserType < Types::BaseObject
     field :id, ID, null: false
-    field :transactions, [Types::TransactionType], null: true
+    field :transactions, resolver: Resolvers::TransactionsResolver
     field :budgets, resolver: Resolvers::BudgetsResolver
     field :username, String, null: false
     field :email, String, null: false

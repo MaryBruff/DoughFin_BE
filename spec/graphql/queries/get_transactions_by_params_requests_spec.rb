@@ -10,15 +10,15 @@ RSpec.describe "Get Transaction by Params", type: :request do
     user.incomes = create_list(:income, 5)
 
     query =  <<~GQL
-          query getTransactionsByCategory($email: String!, $category: String!, $month: String!) {
+          query getTransactionsByParams($email: String!, $category: String!, $month: String!) {
             user(email: $email) {
                 id
-                transactions {
+                transactions(category: $category, month: $month) {
                     id
                     amount
                     date
-                    source
                     category
+                    type
                 }
             }
           }
