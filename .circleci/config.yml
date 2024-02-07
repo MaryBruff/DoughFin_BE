@@ -63,6 +63,7 @@ jobs:
           name: show results
           command: |
             ls -la /tmp/test-results/rspec/
+            cat /tmp/test-results/rspec/results.xml
       - persist_to_workspace:
           root: /tmp
           paths:
@@ -75,9 +76,10 @@ jobs:
       - ruby/install-deps
       - attach_workspace:
           at: /tmp
-      - run: ls -alh /tmp
-      - run: ls -alh /tmp/test-results
-      - run: ls -alh /tmp/test-results/rspec
+#      - run: ls -alh /tmp
+#      - run: ls -alh /tmp/test-results
+#      - run: ls -alh /tmp/test-results/rspec
+      - run: cat /tmp/test-results/rspec/results.xml
       - codecov/upload:
           file: /tmp/test-results/rspec/results.xml
           cli_args: -v
