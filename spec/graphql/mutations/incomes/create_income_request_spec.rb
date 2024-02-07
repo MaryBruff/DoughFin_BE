@@ -20,6 +20,7 @@ RSpec.describe Mutations::CreateIncome, type: :request do
 
       post "/graphql", params: {query: mutation}
       json_response = JSON.parse(response.body, symbolize_names: true)
+      require 'pry'; binding.pry
       data = json_response[:data][:createIncome]
 
       refetch_user = User.find(user.id)
