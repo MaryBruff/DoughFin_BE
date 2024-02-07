@@ -3,6 +3,9 @@ require "rails_helper"
 RSpec.describe Expense, type: :model do
   describe "relationships" do
     it { should belong_to :user }
+    it { should validate_presence_of :category }
+    it { should validate_presence_of :amount }
+    it { should validate_presence_of :date }
   end
 
   it "creates an expense with all attributes" do
