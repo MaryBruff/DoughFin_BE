@@ -10,7 +10,7 @@ module Types
     field :current_expenses, Types::CurrentExpensesType, null: true do
       description "Returns the current expense and percent change"
     end
-    field :cashFlow, Types::CashFlowType, null: true
+    field :cashFlows, [Types::CashFlowType], null: true
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
 
@@ -40,36 +40,41 @@ module Types
       }
     end
 
-    def cashFlow
-      {
-        username: object.username,
-        years: calculate_cash_flow(object.incomes, object.expenses)
-      }
-    end
+    # def cashFlow
+    #   {
+    #     username: object.username,
+    #     years: object.transaction_amounts_by_month_and_year
+    #     # years: calculate_cash_flow(object.incomes, object.expenses)
+    #   }
+    # end
 
-    def calculate_cash_flow(incomes, expenses)
-      [
-        {
-          year: "2023",
-          months: [
-            {
-              month: "December",
-              income: incomes.where("date >= ? AND date <= ?", "2023-12-01", "2023-12-31").sum(:amount),
-              expenses: expenses.where("date >= ? AND date <= ?", "2023-12-01", "2023-12-31").sum(:amount)
-            }
-          ]
-        },
-        {
-          year: "2024",
-          months: [
-            {
-              month: "January",
-              income: incomes.where("date >= ? AND date <= ?", "2024-01-01", "2024-01-31").sum(:amount),
-              expenses: expenses.where("date >= ? AND date <= ?", "2024-01-01", "2024-01-31").sum(:amount)
-            }
-          ]
-        }
-      ]
-    end
+    # def calculate_cash_flow(incomes, expenses)
+    #   # we have user's incomes and expenses as 2 arrays
+    #   # we want the user incomes sorted by year, then by month
+      
+      
+    #   [
+    #     {
+    #       year: "2023",
+    #       months: [
+    #         {
+    #           month: "December",
+    #           income: incomes.where("date >= ? AND date <= ?", "2023-12-01", "2023-12-31").sum(:amount),
+    #           expenses: expenses.where("date >= ? AND date <= ?", "2023-12-01", "2023-12-31").sum(:amount)
+    #         }
+    #       ]
+    #     },
+    #     {
+    #       year: "2024",
+    #       months: [
+    #         {
+    #           month: "January",
+    #           income: incomes.where("date >= ? AND date <= ?", "2024-01-01", "2024-01-31").sum(:amount),
+    #           expenses: expenses.where("date >= ? AND date <= ?", "2024-01-01", "2024-01-31").sum(:amount)
+    #         }
+    #       ]
+    #     }
+    #   ]
+    # end
   end
 end
