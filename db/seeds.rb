@@ -7,23 +7,6 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
-
-u1 = User.create!(username: "moneybaggins", email: "moneybaggins@bigbanktakelilbank.doge")
-Income.create!(source: "Laundering", amount: 80085.00, user_id: u1.id)
-Expense.create!(
-  vendor: "ShhShh Hitman, LLC",
-  category: "Business Incidentals",
-  amount: 8000.00,
-  user_id: u1.id,
-  date: Date.today
-)
-Budget.create!(
-  month: "2024-02",
-  category: "Business Incidentals",
-  amount: 10000.00,
-  user_id: u1.id
-)
-
 user = User.create!(username: "john_smith", email: "email@email.com")
 
 user.expenses.create(amount: 100.0, date: "2024-02-05", category: "Office Supplies")
@@ -37,4 +20,3 @@ user.incomes.create(amount: 1500.0, date: "2024-02-06", source: "Freelance Work"
 user.incomes.create(amount: 3000.0, date: "2024-02-03", source: "Investments")
 user.incomes.create(amount: 2000.0, date: "2024-02-02", source: "Bonus")
 user.incomes.create(amount: 1000.0, date: "2024-02-04", source: "Consulting Fee")
-
