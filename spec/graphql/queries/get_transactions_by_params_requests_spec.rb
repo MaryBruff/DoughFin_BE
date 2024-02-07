@@ -27,6 +27,7 @@ RSpec.describe "Get Transaction by Params", type: :request do
     post "/graphql", params: {query: query, variables: {email: user.email, category: "Groceries", month: "2024-02"}}
 
     json = JSON.parse(response.body, symbolize_names: true)
+    binding.pry
     data = json[:data]
 
     expect(data[:user][:id]).to eq(user.id.to_s)
