@@ -9,15 +9,15 @@ class User < ApplicationRecord
   def transactions # finds all incomes and transactions for a user with type alias, orders by date descending
     transactions = User.find_by_sql("SELECT id,
                                            amount,
-                                           source AS category,
+                                           source AS vendor,
                                            date,
-                                           'income' AS type FROM incomes WHERE user_id = #{id}
+                                           'debited' AS status FROM incomes WHERE user_id = #{id}
                                     UNION
                                     SELECT id,
                                            amount,
-                                           category,
+                                           vendor,
                                            date,
-                                           'expense' AS type FROM expenses WHERE user_id = #{id}
+                                           'credited' AS status FROM expenses WHERE user_id = #{id}
                                     ORDER BY date DESC")
   end
 
@@ -52,7 +52,7 @@ class User < ApplicationRecord
 
     amounts.map do |amount|
       amount.month.strip!
-      amount.year.to_i.to_s # why isn't this working? I'm just trying to remove the ".0" from years
+      # amount.year.to_i.to_s # why isn't this working? I'm just trying to remove the ".0" from years
     end
     # select amount and date from income and expenses
     # pull month and year from date and print month as a word
