@@ -46,8 +46,8 @@ RSpec.describe "Get Expenses by Params", type: :request do
       expect(expense[:category]).to be_a String
       expect(expense[:category]).to eq("Groceries")
 
-      # expect(expense).to have_key(:type)
-      # expect(expense[:type]).to be_a String
+      # expect(expense).to have_key(:source)
+      # expect(expense[:source]).to be_a String
     end
   end
 end
