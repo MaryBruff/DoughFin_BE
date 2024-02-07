@@ -27,26 +27,27 @@ RSpec.describe "Get Expenses by Params", type: :request do
     post "/graphql", params: {query: query, variables: {email: user.email, category: "Groceries", month: "2024-02"}}
 
     json = JSON.parse(response.body, symbolize_names: true)
-    binding.pry
     data = json[:data]
 
     expect(data[:user][:id]).to eq(user.id.to_s)
 
-    data[:user][:transactions].each do |transaction|
-      expect(transaction).to have_key(:id)
-      expect(transaction[:id].to_i).to be_a Integer
+    data[:user][:expenses].each do |expense|
+      expect(expense).to have_key(:id)
+      expect(expense[:id].to_i).to be_a Integer
       
-      expect(transaction).to have_key(:category)
-      expect(transaction[:category]).to be_a String
+      expect(expense).to have_key(:amount)
+      expect(expense[:amount]).to be_a Float
 
-      expect(transaction).to have_key(:amount)
-      expect(transaction[:amount]).to be_a Float
+      expect(expense).to have_key(:date)
+      expect(expense[:date]).to be_a String
+      expect(expense[:date]).to include("2024-02")
 
-      expect(transaction).to have_key(:date)
-      expect(transaction[:date]).to be_a String
+      expect(expense).to have_key(:category)
+      expect(expense[:category]).to be_a String
+      expect(expense[:category]).to eq("Groceries")
 
-      expect(transaction).to have_key(:type)
-      expect(transaction[:type]).to be_a String
+      # expect(expense).to have_key(:type)
+      # expect(expense[:type]).to be_a String
     end
   end
 end
