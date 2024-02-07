@@ -1,13 +1,14 @@
 require "rails_helper"
 
-RSpec.describe "Get Budgets", type: :request do
-  it "returns all of a user's budgets" do
+RSpec.describe "Get Budgets by Search Parameters", type: :request do
+  it "returns the user's budgets within the specified month and category" do
     user = create(:user)
-    user.budgets = create_list(:budget, 5, month: "2024-02")
+    user.budgets = create_list(:budget, 5, category: "Groceries", month: "2024-02")
    
     query =  <<~GQL
               query GetBudgetsByParams($month: String!, $category: String!, $email: String!) {
                 user(email: $email) {
+                    id
                     budgets(month: $month, category: $category) {
                         id
                         month
@@ -19,14 +20,12 @@ RSpec.describe "Get Budgets", type: :request do
       GQL
 
     post "/graphql", params: {query: query, variables: {
-                                                        "email": "moneybaggins@bigbanktakelilbank.doge",
+                                                        "email": user.email,
                                                         "category": "Groceries",
                                                         "month": "2024-02"}}
 
     json = JSON.parse(response.body, symbolize_names: true)
     data = json[:data]
-
-    binding.pry
 
     expect(data[:user][:id]).to eq(user.id.to_s)
 
