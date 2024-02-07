@@ -21,13 +21,13 @@ jobs:
       - image: cimg/base:stable
     steps:
       - attach_workspace:
-          at: tmp/test-results
+          at: /tmp/test-results
       - checkout
-      - run: ls -alh tmp
+      - run: ls -alh /tmp
       - run: ls -alh tmp/test-results
       - run: ls -alh tmp/test-results/rspec
       - run: |
-          if [[ `cat tmp/test-results/rspec/results.xml` == "hello world" ]]; then
+          if [[ `cat /tmp/test-results/rspec/results.xml` == "hello world" ]]; then
             echo "It worked!";
           else
             echo "Nope!"; exit 1
