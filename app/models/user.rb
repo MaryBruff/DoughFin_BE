@@ -21,20 +21,6 @@ class User < ApplicationRecord
                                     ORDER BY date DESC")
   end
 
-  # select all incomes, group by month, alias of year, SUM of amount each month
-  # def years_available # provides a unique list of years available for a user's incomes
-  #   incomes.map do |income|
-  #     income.year
-  #   end.uniq
-  # end
-
-  # def create_year_months
-  #   years = []
-  #   transaction_amounts_by_month_and_year.each do |month|
-  #     if years.find
-  #   end
-  # end
-
   def cashFlows
     amounts = User.find_by_sql("SELECT 
                         EXTRACT(YEAR FROM incomes.date) AS year,
@@ -52,7 +38,13 @@ class User < ApplicationRecord
 
     amounts.map do |amount|
       amount.month.strip!
-      # amount.year.to_i.to_s # why isn't this working? I'm just trying to remove the ".0" from years
+      if amount.total_income == nil
+        amount.total_income = 0
+      end
+
+      if amount.total_expense == nil
+        amount.total_expense = 0
+      end
     end
     # select amount and date from income and expenses
     # pull month and year from date and print month as a word
