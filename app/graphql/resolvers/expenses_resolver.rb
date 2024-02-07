@@ -1,3 +1,5 @@
+require 'date'
+
 module Resolvers
   class ExpensesResolver < Resolvers::BaseResolver
     ## allows for optional additional queries such as month and category
@@ -9,7 +11,7 @@ module Resolvers
     def resolve(month: nil, category: nil)
       ## defaults as nil for both argument parameters and determines the proper response
       if month.present? && category.present?
-        object.expenses.where(month: month, category: category)
+        object.expenses.where("to_char(date, 'YYYY-MM') = ? AND category = ?", month, category)
       else
         object.expenses
       end

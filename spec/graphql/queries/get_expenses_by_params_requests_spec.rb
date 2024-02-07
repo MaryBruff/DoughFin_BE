@@ -1,7 +1,7 @@
 require "rails_helper"
 
-RSpec.describe "Get Transaction by Params", type: :request do
-  it "returns all of a user's transactions from specific month and category" do
+RSpec.describe "Get Expenses by Params", type: :request do
+  it "returns all of a user's expenses from specific month and category" do
     user = create(:user)
     user.expenses = create_list(:expense, 5)
     5.times do
@@ -10,15 +10,15 @@ RSpec.describe "Get Transaction by Params", type: :request do
     user.incomes = create_list(:income, 5)
 
     query =  <<~GQL
-          query getTransactionsByParams($email: String!, $category: String!, $month: String!) {
+          query getExpensesByParams($email: String!, $category: String!, $month: String!) {
             user(email: $email) {
                 id
-                transactions(category: $category, month: $month) {
+                expenses(category: $category, month: $month) {
                     id
                     amount
                     date
                     category
-                    type
+                    # type
                 }
             }
           }
