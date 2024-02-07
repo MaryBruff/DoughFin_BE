@@ -33,7 +33,7 @@ gem "bootsnap", require: false
 # gem "image_processing", "~> 1.2"
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin Ajax possible
-# gem "rack-cors"
+gem "rack-cors"
 gem "graphql"
 gem "graphiql-rails"
 
@@ -48,6 +48,7 @@ group :development, :test do
   gem "faker"
   gem "shoulda-matchers"
   gem "simplecov"
+  gem "rspec_junit_formatter"
 end
 
 group :development do

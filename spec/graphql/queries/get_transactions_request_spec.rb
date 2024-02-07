@@ -5,21 +5,21 @@ RSpec.describe "Get Transactions", type: :request do
     user = create(:user)
     user.expenses = create_list(:expense, 5)
     user.incomes = create_list(:income, 5)
-   
-    query =  <<~GQL
-        query getTransactions($email: String!) {
-          user(email: $email) {
+
+    query = <<~GQL
+      query getTransactions($email: String!) {
+        user(email: $email) {
+          id
+          transactions {
             id
-            transactions {
-              id
-              amount
-              date
-              category
-              type
-            }
+            amount
+            date
+            category
+            type
           }
         }
-      GQL
+      }
+    GQL
 
     post "/graphql", params: {query: query, variables: {email: user.email}}
 
@@ -31,7 +31,7 @@ RSpec.describe "Get Transactions", type: :request do
     data[:user][:transactions].each do |transaction|
       expect(transaction).to have_key(:id)
       expect(transaction[:id].to_i).to be_a Integer
-      
+
       expect(transaction).to have_key(:category)
       expect(transaction[:category]).to be_a String
 
