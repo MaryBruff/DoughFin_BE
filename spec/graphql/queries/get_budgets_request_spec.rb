@@ -24,8 +24,6 @@ RSpec.describe "Get Budgets", type: :request do
     json = JSON.parse(response.body, symbolize_names: true)
     data = json[:data]
 
-    binding.pry
-
     expect(data[:user][:id]).to eq(user.id.to_s)
 
     data[:user][:budgets].each do |budget|
