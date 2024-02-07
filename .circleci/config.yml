@@ -21,7 +21,7 @@ jobs:
       - image: cimg/base:stable
     steps:
       - attach_workspace:
-          at: /tmp/test-results
+          at: /tmp
       - checkout
       - run: pwd
       - run: ls -alh /tmp
