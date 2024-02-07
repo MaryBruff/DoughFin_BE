@@ -14,13 +14,15 @@ Expense.create!(
   vendor: "ShhShh Hitman, LLC",
   category: "Business Incidentals",
   amount: 8000.00,
-  user_id: u1.id
+  user_id: u1.id,
+  date: Date.today
 )
 Budget.create!(
   month: "2024-02",
   category: "Business Incidentals",
   amount: 10000.00,
-  user_id: u1.id
+  user_id: u1.id,
+  flow: "expense"
 )
 
 user = User.create!(username: "john_smith", email: "email@email.com")
