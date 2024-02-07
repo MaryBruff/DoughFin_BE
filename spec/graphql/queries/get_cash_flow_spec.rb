@@ -23,33 +23,31 @@ RSpec.describe "Get Cash Flow", type: :request do
 
     json = JSON.parse(response.body, symbolize_names: true)
     data = json[:data]
-    # binding.pry
-    expect(data).to have_key(:cashFlow)
-    expect(data[:cashFlow]).to be_a Hash
 
-    expect(data[:cashFlow]).to have_key(:username)
-    expect(data[:cashFlow][:username]).to be_a String
+    expect(data).to have_key(:user)
+    expect(data[:user]).to be_a Hash
+
+    expect(data[:user]).to have_key(:id)
+    expect(data[:user][:id].to_i).to be_a Integer
     
-    expect(data[:cashFlow]).to have_key(:years)
-    expect(data[:cashFlow][:years]).to be_a Array
+    expect(data[:user]).to have_key(:cashFlows)
+    expect(data[:user][:cashFlows]).to be_a Array
     
-    data[:cashFlow][:years].each do |year|
-      expect(year).to have_key(:year)
-      expect(year[:year]).to be_a String
+    data[:user][:cashFlows].each do |cash_flow|
+      expect(cash_flow).to have_key(:year)
+      expect(cash_flow[:year]).to be_a Integer
 
-      expect(year).to have_key(:months)
-      expect(year[:months]).to be_a Array
+      expect(cash_flow).to have_key(:month)
+      expect(cash_flow[:month]).to be_a String
 
-      year[:months].each do |month|
-        expect(month).to have_key(:month)
-        expect(month[:month]).to be_a String
+      expect(cash_flow).to have_key(:month)
+      expect(cash_flow[:month]).to be_a String
 
-        expect(month).to have_key(:income)
-        expect(month[:income]).to be_a Float
+      expect(cash_flow).to have_key(:totalIncome)
+      expect(cash_flow[:totalIncome]).to be_a Float
 
-        expect(month).to have_key(:expenses)
-        expect(month[:expenses]).to be_a Float
-      end
+      expect(cash_flow).to have_key(:totalExpense)
+      expect(cash_flow[:totalExpense]).to be_a Float
     end
   end
 end
