@@ -23,9 +23,10 @@ jobs:
       - attach_workspace:
           at: /tmp/test-results
       - checkout
+      - run: pwd
       - run: ls -alh /tmp
-      - run: ls -alh tmp/test-results
-      - run: ls -alh tmp/test-results/rspec
+      - run: ls -alh /tmp/test-results
+      - run: ls -alh /tmp/test-results/rspec
       - run: |
           if [[ `cat /tmp/test-results/rspec/results.xml` == "hello world" ]]; then
             echo "It worked!";
