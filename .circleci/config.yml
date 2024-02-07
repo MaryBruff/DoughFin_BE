@@ -10,11 +10,9 @@ jobs:
     steps:
       - checkout
       - ruby/install-deps
-      - run: pwd
       - run: mkdir -p tmp/test-results/rspec
       - run: echo 'hello world' > tmp/test-results/rspec/results.xml
-      - run: ls -alh tmp
-      - run: ls -alh ..
+      - run: ls -alh tmp/test-results/rspec
       - persist_to_workspace:
           root: tmp
           paths: test-results/rspec
@@ -23,12 +21,13 @@ jobs:
       - image: cimg/base:stable
     steps:
       - attach_workspace:
-          at: /tmp/test-results
+          at: tmp/test-results
       - checkout
       - run: ls -alh tmp
-      - run: ls -alh .
+      - run: ls -alh tmp/test-results
+      - run: ls -alh tmp/test-results/rspec
       - run: |
-          if [[ `cat /tmp/test-results/rspec/results.xml` == "hello world" ]]; then
+          if [[ `cat tmp/test-results/rspec/results.xml` == "hello world" ]]; then
             echo "It worked!";
           else
             echo "Nope!"; exit 1
