@@ -22,35 +22,42 @@ class User < ApplicationRecord
   end
 
   # select all incomes, group by month, alias of year, SUM of amount each month
-  def years_available # provides a unique list of years available for a user's incomes
-    incomes.map do |income|
-      income.year
-    end.uniq
-  end
+  # def years_available # provides a unique list of years available for a user's incomes
+  #   incomes.map do |income|
+  #     income.year
+  #   end.uniq
+  # end
 
-  def transaction_amounts_by_month_and_year
-    User.find_by_sql("SELECT 
-                        EXTRACT(YEAR FROM date) AS year,
-                        TO_CHAR(date, 'Month') AS month,
-                        SUM(amount) AS total_amount,
-                        'monthly_income' AS type 
+  # def create_year_months
+  #   years = []
+  #   transaction_amounts_by_month_and_year.each do |month|
+  #     if years.find
+  #   end
+  # end
+
+  def cashFlows
+    amounts = User.find_by_sql("SELECT 
+                        EXTRACT(YEAR FROM incomes.date) AS year,
+                        TO_CHAR(incomes.date, 'Month') AS month,
+                        SUM(incomes.amount) AS total_income,
+                        SUM(expenses.amount) AS total_expense
                       FROM incomes
-                      WHERE user_id = #{id}
-                      GROUP BY year, month
-                      UNION
-                      SELECT 
-                        EXTRACT(YEAR FROM date) AS year,
-                        TO_CHAR(date, 'Month') AS month,
-                        SUM(amount) AS total_amount,
-                        'monthly_expense' AS type 
-                      FROM expenses
-                      WHERE user_id = #{id}
+                      FULL JOIN expenses 
+                        ON EXTRACT(YEAR FROM expenses.date) = EXTRACT(YEAR FROM incomes.date) 
+                        AND EXTRACT(MONTH FROM expenses.date) = EXTRACT(MONTH FROM incomes.date) 
+                        AND expenses.user_id = incomes.user_id
+                      WHERE incomes.user_id = #{id}
                       GROUP BY year, month
                       ORDER BY year, month;")
+
+    amounts.map do |amount|
+      amount.month.strip!
+      amount.year.to_i.to_s # why isn't this working? I'm just trying to remove the ".0" from years
+    end
     # select amount and date from income and expenses
     # pull month and year from date and print month as a word
-    # create monthly_income and monthly_expenses types column
     # sum amounts on each table
-    # union between expenses and incomes where user_id = id
+    # join expenses and incomes where user_id = id and month and yeat match
+    amounts
   end
 end
