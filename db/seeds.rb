@@ -21,11 +21,11 @@ Budget.create!(
   month: "2024-02",
   category: "Business Incidentals",
   amount: 10000.00,
-  user_id: u1.id,
-  flow: "expense"
+  user_id: u1.id
 )
 
 user = User.create!(username: "john_smith", email: "email@email.com")
+
 user.expenses.create(amount: 100.0, date: "2024-02-05", category: "Office Supplies")
 user.expenses.create(amount: 200.0, date: "2024-02-03", category: "Utilities")
 user.expenses.create(amount: 150.0, date: "2024-02-01", category: "Marketing")
@@ -37,3 +37,4 @@ user.incomes.create(amount: 1500.0, date: "2024-02-06", source: "Freelance Work"
 user.incomes.create(amount: 3000.0, date: "2024-02-03", source: "Investments")
 user.incomes.create(amount: 2000.0, date: "2024-02-02", source: "Bonus")
 user.incomes.create(amount: 1000.0, date: "2024-02-04", source: "Consulting Fee")
+
