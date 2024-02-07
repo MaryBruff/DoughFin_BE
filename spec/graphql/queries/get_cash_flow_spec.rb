@@ -3,23 +3,18 @@ require "rails_helper"
 RSpec.describe "Get Cash Flow", type: :request do
   it "returns month by month cash flow" do
     user = create(:user)
-    user.expenses = create_list(:expense, 5)
-    user.incomes = create_list(:income, 5)
-
+    user.expenses = create_list(:expense, 10)
+    user.incomes = create_list(:income, 10)
     query = <<~GQL
-      query {
-        user(email: "#{user.email}") {
-          cashFlow {
-            username
-            years {
-              year
-              months {
+      query getCashFlow($email: String!) {
+        user(email: $email) {
+              id
+              cashFlows {
                 month
-                income
-                expenses
+                year
+                totalIncome
+                totalExpense
               }
-            }
-          }
         }
       }
     GQL
@@ -28,7 +23,7 @@ RSpec.describe "Get Cash Flow", type: :request do
 
     json = JSON.parse(response.body, symbolize_names: true)
     data = json[:data]
-    
+    # binding.pry
     expect(data).to have_key(:cashFlow)
     expect(data[:cashFlow]).to be_a Hash
 
