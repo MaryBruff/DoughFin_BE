@@ -42,7 +42,7 @@ group :development, :test do
   gem "debug", platforms: %i[mri windows]
   gem "pry"
   gem "byebug"
-  # gem "standardrb"
+  gem "standardrb"
   gem "rspec-rails"
   gem "factory_bot_rails"
   gem "faker"
