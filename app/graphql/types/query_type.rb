@@ -6,11 +6,15 @@ module Types
       Types::UserType,
       null: false,
       description: "Returns a user" do
-      argument :email, String, required: true, description: "Email of the user"
+      argument :email, String, required: false, description: "Email of the user"
+      argument :id, ID, required: false, description: "ID of the user"
     end
 
-    def user(email:)
-      User.where(email: email).first
+    def user(email: nil, id: nil)
+      raise GraphQL::ExecutionError, "You must provide either an email or an ID." if email.nil? && id.nil?
+      user = id ? User.find_by(id: id) : User.find_by(email: email)
+      raise GraphQL::ExecutionError, "User not found." if user.nil?
+      user
     end
 
     # samples

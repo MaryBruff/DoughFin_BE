@@ -1,5 +1,5 @@
 class Mutations::DeleteBudget < Mutations::BaseMutation
-  argument :budgetId, Integer, required: true
+  argument :budgetId, ID, required: true
 
   field :budget, Types::BudgetType, null: false
   field :code, Integer, null: false
