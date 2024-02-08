@@ -1,10 +1,10 @@
 class Mutations::CreateBudget < Mutations::BaseMutation
-  argument :userId, Integer, required: true
+  argument :userId, ID, required: true
   argument :month, String, required: true
   argument :category, String, required: true
   argument :amount, Float, required: true
 
-  field :user_id, Integer, null: false
+  field :user_id, ID, null: false
   field :month, String, null: true
   field :category, String, null: true
   field :amount, Float, null: true
