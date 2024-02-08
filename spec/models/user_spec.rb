@@ -28,8 +28,8 @@ RSpec.describe User, type: :model do
           expect(transaction).to have_key(:id)
           expect(transaction[:id].to_i).to be_a Integer
 
-          expect(transaction).to have_key(:category)
-          expect(transaction[:category]).to be_a String
+          expect(transaction).to have_key(:vendor)
+          expect(transaction[:vendor]).to be_a String
 
           expect(transaction).to have_key(:amount)
           expect(transaction[:amount]).to be_a Float
@@ -37,8 +37,8 @@ RSpec.describe User, type: :model do
           expect(transaction).to have_key(:date)
           expect(transaction[:date]).to be_a String
 
-          expect(transaction).to have_key(:type)
-          expect(transaction[:type]).to be_a String
+          expect(transaction).to have_key(:status)
+          expect(transaction[:status]).to be_a String
         end
       end
     end

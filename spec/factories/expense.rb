@@ -7,6 +7,6 @@ FactoryBot.define do
     vendor { Faker::Company.name }
     category { Faker::Company.type }
     amount { Faker::Number.positive(from: 1, to: 1000) }
-    date { Date.today }
+    date { Faker::Date.between(from: 100.days.ago, to: Date.today) }
   end
 end
