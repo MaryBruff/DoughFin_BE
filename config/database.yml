@@ -79,6 +79,4 @@ test:
 #
 production:
   <<: *default
-  database: dough_fin_be_production
-  username: dough_fin_be
-  password: <%= ENV["DOUGH_FIN_BE_DATABASE_PASSWORD"] %>
+  url: <%= Rails.application.credentials.DATABASE_URL %>

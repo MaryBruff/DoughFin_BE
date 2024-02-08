@@ -1,7 +1,8 @@
 version: '2.1'
 orbs:
-  node: circleci/node@20.0
-  ruby: circleci/ruby@3.2.2
+  node: circleci/node@5.2.0
+  ruby: circleci/ruby@2.1.1
+  codecov: codecov/codecov@4.0.1
 jobs:
   build:
     docker:
@@ -9,40 +10,47 @@ jobs:
     steps:
       - checkout
       - ruby/install-deps
-      - node/install-packages:
-          cache-key: yarn.lock
-          pkg-manager: yarn
-  checking:
+#      - run: mkdir -p tmp/test-results/rspec
+#      - run: echo 'hello world' > tmp/test-results/rspec/results.xml
+#      - run: ls -alh tmp/test-results/rspec
+#      - persist_to_workspace:
+#          root: tmp
+#          paths: test-results/rspec
+  access_file:
     docker:
-      - image: cimg/ruby:3.2.2-node
+      - image: cimg/base:stable
     steps:
+      - attach_workspace:
+          at: /tmp
       - checkout
-      - ruby/install-deps
-      - ruby/rubocop-check:
-          format: progress
-          label: Inspecting with Rubocop
+      - run: pwd
+      - run: ls -alh /tmp
+      - run: ls -alh /tmp/test-results
+      - run: ls -alh /tmp/test-results/rspec
+      - run: |
+          if [[ `cat /tmp/test-results/rspec/results.xml` == "hello world" ]]; then
+            echo "It worked!";
+          else
+            echo "Nope!"; exit 1
+          fi
   test:
     docker:
       - image: cimg/ruby:3.2.2-node
       - environment:
-          POSTGRES_DB: rails_blog_test
+          POSTGRES_DB: dough_fin_be_test
           POSTGRES_PASSWORD: ''
-          POSTGRES_USER: circleci-demo-ruby
+          POSTGRES_USER: dough_fin
         image: circleci/postgres:9.5-alpine
     environment:
       BUNDLE_JOBS: '3'
       BUNDLE_RETRY: '3'
       PGHOST: 127.0.0.1
       PGPASSWORD: ''
-      PGUSER: circleci-demo-ruby
+      PGUSER: dough_fin
       RAILS_ENV: test
-    parallelism: 3
     steps:
       - checkout
       - ruby/install-deps
-      - node/install-packages:
-          cache-key: yarn.lock
-          pkg-manager: yarn
       - run:
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
           name: Wait for DB
@@ -51,12 +59,41 @@ jobs:
           name: Database setup
       - ruby/rspec-test:
           include: spec/**/*_spec.rb
+      - run:
+          name: show results
+          command: |
+            ls -la /tmp/test-results/rspec/
+            cat /tmp/test-results/rspec/results.xml
+      - persist_to_workspace:
+          root: /tmp
+          paths:
+            - test-results/rspec
+  upload_cov:
+    docker:
+      - image: cimg/ruby:3.2.2-node
+    steps:
+      - checkout
+      - ruby/install-deps
+      - attach_workspace:
+          at: /tmp
+#      - run: ls -alh /tmp
+#      - run: ls -alh /tmp/test-results
+#      - run: ls -alh /tmp/test-results/rspec
+      - run: cat /tmp/test-results/rspec/results.xml
+      - codecov/upload:
+          file: /tmp/test-results/rspec/results.xml
+          cli_args: -v
 workflows:
   build_and_test:
     jobs:
       - build
-      - checking
       - test:
           requires:
             - build
+      - upload_cov:
+          requires:
+            - test
+#      - access_file:
+#          requires:
+#            - build
 

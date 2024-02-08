@@ -3,8 +3,8 @@ require 'date'
 module Resolvers
   class ExpensesResolver < Resolvers::BaseResolver
     ## allows for optional additional queries such as month and category
-    argument :month, String, required: false
-    argument :category, String, required: false
+    argument :month, String, required: false ## month = "2024-02"
+    argument :category, String, required: false ## category = "Groceries"
 
     type [Types::ExpenseType], null: false
 
