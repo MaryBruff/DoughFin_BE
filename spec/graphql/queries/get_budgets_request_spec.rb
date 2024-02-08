@@ -4,20 +4,20 @@ RSpec.describe "Get Budgets", type: :request do
   it "returns all of a user's budgets" do
     user = create(:user)
     user.budgets = create_list(:budget, 5)
-   
-    query =  <<~GQL
-          query GetBudgets($email: String!) {
+
+    query = <<~GQL
+        query GetBudgets($email: String!) {
             user(email: $email) {
                 id
                 budgets {
-                            id
-                            month
-                            category
-                            amount
+                    id
+                    month
+                    category
+                    amount
                 }
             }
-        }
-      GQL
+      }
+    GQL
 
     post "/graphql", params: {query: query, variables: {email: user.email}}
 
@@ -32,7 +32,7 @@ RSpec.describe "Get Budgets", type: :request do
 
       expect(budget).to have_key(:month)
       expect(budget[:month]).to be_a String
-      
+
       expect(budget).to have_key(:category)
       expect(budget[:category]).to be_a String
 
