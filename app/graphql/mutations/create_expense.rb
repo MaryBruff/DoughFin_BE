@@ -6,10 +6,7 @@ class Mutations::CreateExpense < Mutations::BaseMutation
   argument :date, String, required: true
 
   field :user_id, ID, null: false
-  field :vendor, String, null: true
-  field :category, String, null: true
-  field :amount, Float, null: true
-  field :date, String, null: true
+  field :expense, Types::ExpenseType, null: false
 
   def resolve(input)
     user_id = input[:userId]
@@ -18,6 +15,13 @@ class Mutations::CreateExpense < Mutations::BaseMutation
     amount = input[:amount]
     date = input[:date]
 
-    User.find(user_id).expenses.create!(vendor: vendor, category: category, amount: amount, date: date)
+    expense = User.find(user_id).expenses.create!(vendor: vendor, category: category, amount: amount, date: date)
+
+    raise GraphQL::ExecutionError, expense.errors.full_messages.join(", ") unless expense.persisted?
+
+    {
+      user_id: user_id,
+      expense: expense
+    }
   end
 end
