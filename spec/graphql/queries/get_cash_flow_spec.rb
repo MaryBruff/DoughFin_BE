@@ -29,10 +29,10 @@ RSpec.describe "Get Cash Flow", type: :request do
 
     expect(data[:user]).to have_key(:id)
     expect(data[:user][:id].to_i).to be_a Integer
-    
+
     expect(data[:user]).to have_key(:cashFlows)
     expect(data[:user][:cashFlows]).to be_a Array
-    
+
     data[:user][:cashFlows].each do |cash_flow|
       expect(cash_flow).to have_key(:year)
       expect(cash_flow[:year]).to be_a Integer

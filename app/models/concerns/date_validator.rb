@@ -3,10 +3,10 @@ class DateValidator < ActiveModel::EachValidator
     return if value.blank?
 
     unless value.is_a?(Date) || value.is_a?(Time)
-      record.errors.add(attribute, 'must be a valid date')
+      record.errors.add(attribute, "must be a valid date")
     end
   rescue ArgumentError
-    record.errors.add(attribute, 'must be a valid date')
+    record.errors.add(attribute, "must be a valid date")
   end
 end
 
