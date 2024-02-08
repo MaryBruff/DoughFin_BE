@@ -1,5 +1,5 @@
 class Mutations::DeleteIncome < Mutations::BaseMutation
-  argument :incomeId, Integer, required: true
+  argument :incomeId, ID, required: true
 
   field :income, Types::IncomeType, null: false
   field :code, Integer, null: false

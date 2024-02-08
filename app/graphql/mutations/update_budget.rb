@@ -1,5 +1,5 @@
 class Mutations::UpdateBudget < Mutations::BaseMutation
-  argument :id, Integer, required: true
+  argument :id, ID, required: true
   argument :month, String, required: false
   argument :category, String, required: false
   argument :amount, Float, required: false

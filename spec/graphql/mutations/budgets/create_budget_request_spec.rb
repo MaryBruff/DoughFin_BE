@@ -25,7 +25,7 @@ RSpec.describe Mutations::CreateBudget, type: :request do
       refetch_user = User.find(user.id)
 
       expect(data).to have_key(:userId)
-      expect(data[:userId]).to eq(refetch_user.id)
+      expect(data[:userId]).to eq(refetch_user.id.to_s)
       expect(data).to have_key(:month)
       expect(data[:month]).to eq("January")
       expect(data).to have_key(:category)
