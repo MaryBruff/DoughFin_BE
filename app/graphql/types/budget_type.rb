@@ -8,8 +8,5 @@ module Types
     field :month, String, null: false
     field :amount, Float, null: false
     field :category, String, null: false
-    # New fields below added for calculated values
-    field :pctRemaining, Float, null: true
-    field :amountRemaining, Float, null: true
   end
 end
