@@ -3,7 +3,7 @@
 module Types
   class IncomeType < Types::BaseObject
     field :id, ID, null: true
-    field :user_id, Integer, null: true
+    field :user_id, ID, null: true
     field :user, Types::UserType, null: false
     field :source, String, null: true
     field :amount, Float, null: true

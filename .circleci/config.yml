@@ -68,6 +68,20 @@ jobs:
           root: /tmp
           paths:
             - test-results/rspec
+  automated-api-tests:
+    docker:
+      - image: cimg/base:2021.04
+    steps:
+      - checkout
+      - run:
+          name: Install Postman CLI
+          command: |
+            curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
+      - run:
+          name: Login using your API key
+          command: postman login --with-api-key $POSTMAN_API_KEY
+      - run: |
+          postman collection run "32691430-d6ebc16a-355e-4d35-bb2c-fd77c006e18c" -e "31402405-b0690f20-1d59-4edc-9f1d-e8c46bf9afe8"
   upload_cov:
     docker:
       - image: cimg/ruby:3.2.2-node
@@ -93,6 +107,9 @@ workflows:
       - upload_cov:
           requires:
             - test
+#      - automated_api_tests:
+#          requires:
+#            - build
 #      - access_file:
 #          requires:
 #            - build

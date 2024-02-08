@@ -5,7 +5,7 @@ class Mutations::CreateExpense < Mutations::BaseMutation
   argument :amount, Float, required: true
   argument :date, String, required: true
 
-  field :user_id, Integer, null: false
+  field :user_id, ID, null: false
   field :vendor, String, null: true
   field :category, String, null: true
   field :amount, Float, null: true

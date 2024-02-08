@@ -3,7 +3,7 @@
 module Types
   class ExpenseType < Types::BaseObject
     field :id, ID, null: false
-    field :user_id, Integer, null: false
+    field :user_id, ID, null: false
     field :user, Types::UserType, null: false
     field :vendor, String, null: true
     field :category, String, null: true
