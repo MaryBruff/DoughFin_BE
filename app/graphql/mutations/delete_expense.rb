@@ -1,5 +1,5 @@
 class Mutations::DeleteExpense < Mutations::BaseMutation
-  argument :expenseId, Integer, required: true
+  argument :expenseId, ID, required: true
 
   field :expense, Types::ExpenseType, null: false
   field :code, Integer, null: false
