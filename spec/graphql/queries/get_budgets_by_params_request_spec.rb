@@ -10,23 +10,25 @@ RSpec.describe "Get Budgets by Search Parameters", type: :request do
     end
 
     query = <<~GQL
-          query GetBudgetsByParams($month: String!, $category: String!, $email: String!) {
-            user(email: $email) {
-                id
-                budgets(month: $month, category: $category) {
-                    id
-                    month
-                    category
-                    amount
-                }
-                expenses(category: $category, month: $month) {
-                    id
-                    amount
-                    date
-                    category
-                }
-            }
-        }
+        query GetBudgetsByParams($month: String!, $category: String!, $email: String!) {
+          user(email: $email) {
+              id
+              budgets(month: $month, category: $category) {
+                  id
+                  month
+                  category
+                  amount
+                  pctRemaining
+                  amountRemaining
+              }
+              expenses(category: $category, month: $month) {
+                  id
+                  amount
+                  date
+                  category
+              }
+          }
+      }
     GQL
 
     post "/graphql", params: {query: query, variables: {
