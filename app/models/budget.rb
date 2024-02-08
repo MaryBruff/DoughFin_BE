@@ -6,8 +6,14 @@ class Budget < ApplicationRecord
   validates :month, presence: true
 
   before_save :downcase_category
-
-  private
+  
+  def pct_remaining
+    if amount > 0
+      ((amount_remaining / amount) * 100).round(1)
+    else
+      0
+    end
+  end
 
   def downcase_category
     self.category = category.downcase
@@ -17,13 +23,6 @@ class Budget < ApplicationRecord
     pluck(:category).uniq
   end
 
-  def pct_remaining
-    if amount > 0
-      ((amount_remaining / amount) * 100).round(1)
-    else
-      0
-    end
-  end
 
   def amount_remaining
     amount - amount_spent
