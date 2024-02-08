@@ -39,7 +39,7 @@ RSpec.describe "Get Budgets by Search Parameters", type: :request do
 
     json = JSON.parse(response.body, symbolize_names: true)
     data = json[:data]
-binding.pry
+
     expect(data[:user][:id]).to eq(user.id.to_s)
 
     data[:user][:budgets].each do |budget|
@@ -51,9 +51,32 @@ binding.pry
 
       expect(budget).to have_key(:category)
       expect(budget[:category]).to be_a String
+      expect(budget[:category]).to eq("Groceries")
 
       expect(budget).to have_key(:amount)
       expect(budget[:amount]).to be_a Float
+
+      expect(budget).to have_key(:pctRemaining)
+      expect(budget[:pctRemaining]).to be_a Float
+
+      expect(budget).to have_key(:amountRemaining)
+      expect(budget[:amountRemaining]).to be_a Float
+    end
+
+    data[:user][:expenses].each do |expense|
+      expect(expense).to have_key(:id)
+      expect(expense[:id].to_i).to be_a Integer
+
+      expect(expense).to have_key(:date)
+      expect(expense[:date]).to be_a String
+      expect(expense[:date]).to include("2024-02")
+
+      expect(expense).to have_key(:category)
+      expect(expense[:category]).to be_a String
+      expect(expense[:category]).to eq("Groceries")
+
+      expect(expense).to have_key(:amount)
+      expect(expense[:amount]).to be_a Float
     end
   end
 end

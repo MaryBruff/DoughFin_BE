@@ -12,6 +12,7 @@ module Types
     field :current_expenses, Types::CurrentExpensesType, null: true do
       description "Returns the current expense and percent change"
     end
+    field :cashFlows, [Types::CashFlowType], null: true
     field :created_at, GraphQL::Types::ISO8601DateTime, null: false
     field :updated_at, GraphQL::Types::ISO8601DateTime, null: false
 
