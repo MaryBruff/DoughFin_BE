@@ -7,21 +7,21 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true
 
   def transactions # finds all incomes and transactions for a user with type alias, orders by date descending
-    transactions = User.find_by_sql("SELECT id,
-                                           amount,
-                                           source AS vendor,
-                                           date,
-                                           'debited' AS status FROM incomes WHERE user_id = #{id}
-                                    UNION
-                                    SELECT id,
-                                           amount,
-                                           vendor,
-                                           date,
-                                           'credited' AS status FROM expenses WHERE user_id = #{id}
-                                    ORDER BY date DESC")
+    User.find_by_sql("SELECT id,
+                             amount,
+                             source AS vendor,
+                             date,
+                             'debited' AS status FROM incomes WHERE user_id = #{id}
+                      UNION
+                      SELECT id,
+                             amount,
+                             vendor,
+                             date,
+                             'credited' AS status FROM expenses WHERE user_id = #{id}
+                      ORDER BY date DESC")
   end
 
-  def cashFlows
+  def cash_flows
     amounts = User.find_by_sql("SELECT
                         EXTRACT(YEAR FROM incomes.date) AS year,
                         TO_CHAR(incomes.date, 'Month') AS month,

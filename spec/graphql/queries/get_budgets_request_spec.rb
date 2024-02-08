@@ -3,7 +3,11 @@ require "rails_helper"
 RSpec.describe "Get Budgets", type: :request do
   it "returns all of a user's budgets" do
     user = create(:user)
-    user.budgets = create_list(:budget, 5)
+    create :budget, user: user, category: "Food", amount: 100
+    create :budget, user: user, category: "Clothing", amount: 100
+    create :budget, user: user, category: "Entertainment", amount: 100
+    create :budget, user: user, category: "Transportation", amount: 100
+    create :budget, user: user, category: "Health", amount: 100
 
     query = <<~GQL
         query GetBudgets($userId: ID!) {

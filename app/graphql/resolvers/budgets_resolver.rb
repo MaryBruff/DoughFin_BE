@@ -7,7 +7,7 @@ module Resolvers
 
     def resolve(month: nil, category: nil)
       if month.present? && category.present?
-        budgets = object.budgets.where(month: month, category: category)
+        object.budgets.where(month: month, category: category)
       else
         object.budgets
       end

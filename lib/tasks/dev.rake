@@ -14,7 +14,8 @@ namespace :dev do
     # Expenses past month
     26.times { create :expense, user: user, date: "2024-01-" + rand(1..28).to_s }
     # Budgets
-    26.times { create :budget, user: user, month: "2024-02", category: user.expenses.pluck(:category).sample }
+    budgets = FactoryBot.build_list(:budget, 26, user: user, month: "2024-02", category: user.expenses.pluck(:category).sample)
+    budgets.each { |budget| budget.save }
     # Incomes
     3.times { create :income, user: user, date: "2024-02-" + rand(1..28).to_s }
     # Incomes past month
@@ -26,7 +27,8 @@ namespace :dev do
     # Expenses past month
     26.times { create :expense, user: user2, date: "2024-01-" + rand(1..28).to_s }
     # Budgets
-    26.times { create :budget, user: user2, month: "2024-02", category: user2.expenses.pluck(:category).sample }
+    budgets = FactoryBot.build_list(:budget, 26, user: user2, month: "2024-02", category: user.expenses.pluck(:category).sample)
+    budgets.each { |budget| budget.save }
     # Incomes
     3.times { create :income, user: user2, date: "2024-02-" + rand(1..28).to_s }
     # Incomes past month
