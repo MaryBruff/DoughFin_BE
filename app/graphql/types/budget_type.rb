@@ -9,7 +9,7 @@ module Types
     field :amount, Float, null: false
     field :category, String, null: false
     # New fields below added for calculated values
-    field :pct_remaining, Float, null: true
-    field :amount_remaining, Float, null: true
+    field :pctRemaining, Float, null: true
+    field :amountRemaining, Float, null: true
   end
 end
