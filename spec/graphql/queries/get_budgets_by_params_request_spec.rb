@@ -3,20 +3,30 @@ require "rails_helper"
 RSpec.describe "Get Budgets by Search Parameters", type: :request do
   it "returns the user's budgets within the specified month and category" do
     user = create(:user)
-    user.budgets = create_list(:budget, 5, category: "Groceries", month: "2024-02")
+    user.budgets = create_list(:budget, 1, category: "Groceries", amount: 350.00, month: "2024-02")
+    user.expenses = create_list(:expense, 5)
+    5.times do
+      user.expenses << FactoryBot.create(:expense, user: user, category: "Groceries", amount: 25.00, date: "2024-02-" + format('%02d', rand(1..28)))
+    end
 
     query = <<~GQL
-        query GetBudgetsByParams($month: String!, $category: String!, $email: String!) {
-          user(email: $email) {
-              id
-              budgets(month: $month, category: $category) {
-                  id
-                  month
-                  category
-                  amount
-                  }
-          }
-      }
+          query GetBudgetsByParams($month: String!, $category: String!, $email: String!) {
+            user(email: $email) {
+                id
+                budgets(month: $month, category: $category) {
+                    id
+                    month
+                    category
+                    amount
+                }
+                expenses(category: $category, month: $month) {
+                    id
+                    amount
+                    date
+                    category
+                }
+            }
+        }
     GQL
 
     post "/graphql", params: {query: query, variables: {
