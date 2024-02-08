@@ -10,19 +10,20 @@ class Budget < ApplicationRecord
   end
 
   def pct_remaining
-    if self.amount > 0
-      ((amount_remaining / self.amount) * 100).round(1)
+    if amount > 0
+      ((amount_remaining / amount) * 100).round(1)
     else
       0
     end
   end
 
   def amount_remaining
-    self.amount - amount_spent
+    amount - amount_spent
   end
 
   private
+
   def amount_spent
-    Expense.where(category: self.category).sum(:amount)
+    Expense.where(category: category).sum(:amount)
   end
 end

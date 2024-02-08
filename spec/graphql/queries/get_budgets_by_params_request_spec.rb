@@ -6,7 +6,7 @@ RSpec.describe "Get Budgets by Search Parameters", type: :request do
     user.budgets = create_list(:budget, 1, category: "Groceries", amount: 350.00, month: "2024-02")
     user.expenses = create_list(:expense, 5)
     5.times do
-      user.expenses << FactoryBot.create(:expense, user: user, category: "Groceries", amount: 25.00, date: "2024-02-" + format('%02d', rand(1..28)))
+      user.expenses << FactoryBot.create(:expense, user: user, category: "Groceries", amount: 25.00, date: "2024-02-" + format("%02d", rand(1..28)))
     end
 
     query = <<~GQL

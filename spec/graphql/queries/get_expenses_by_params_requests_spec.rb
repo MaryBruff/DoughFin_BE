@@ -5,24 +5,23 @@ RSpec.describe "Get Expenses by Params", type: :request do
     user = create(:user)
     user.expenses = create_list(:expense, 5)
     5.times do
-      user.expenses << FactoryBot.create(:expense, user: user, category: "Groceries", date: "2024-02-" + format('%02d', rand(1..28)))
+      user.expenses << FactoryBot.create(:expense, user: user, category: "Groceries", date: "2024-02-" + format("%02d", rand(1..28)))
     end
     user.incomes = create_list(:income, 5)
 
-    query =  <<~GQL
-          query getExpensesByParams($email: String!, $category: String!, $month: String!) {
-            user(email: $email) {
+    query = <<~GQL
+      query getExpensesByParams($email: String!, $category: String!, $month: String!) {
+        user(email: $email) {
+            id
+            expenses(category: $category, month: $month) {
                 id
-                expenses(category: $category, month: $month) {
-                    id
-                    amount
-                    date
-                    category
-                    # type
-                }
+                amount
+                date
+                category
             }
-          }
-      GQL
+        }
+      }
+    GQL
 
     post "/graphql", params: {query: query, variables: {email: user.email, category: "Groceries", month: "2024-02"}}
 
@@ -34,7 +33,7 @@ RSpec.describe "Get Expenses by Params", type: :request do
     data[:user][:expenses].each do |expense|
       expect(expense).to have_key(:id)
       expect(expense[:id].to_i).to be_a Integer
-      
+
       expect(expense).to have_key(:amount)
       expect(expense[:amount]).to be_a Float
 
