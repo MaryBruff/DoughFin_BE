@@ -5,6 +5,14 @@ class Budget < ApplicationRecord
   validates :category, presence: true
   validates :month, presence: true
 
+  before_save :downcase_category
+
+  private
+
+  def downcase_category
+    self.category = category.downcase
+  end
+
   def self.categories
     pluck(:category).uniq
   end

@@ -29,7 +29,7 @@ RSpec.describe Mutations::CreateBudget, type: :request do
       expect(data).to have_key(:month)
       expect(data[:month]).to eq("January")
       expect(data).to have_key(:category)
-      expect(data[:category]).to eq("Electronics")
+      expect(data[:category]).to eq("electronics")
       expect(data).to have_key(:amount)
       expect(data[:amount]).to eq(3500.00)
     end
