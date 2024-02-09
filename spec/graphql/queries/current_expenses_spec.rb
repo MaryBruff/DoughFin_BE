@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe Queries::TotalExpenseQuery, type: :request do
+RSpec.describe Types::CurrentExpensesType, type: :request do
   describe "resolve" do
     it "successfully gets the sum of all incomes for a user" do
       user = create(:user)
@@ -15,7 +15,7 @@ RSpec.describe Queries::TotalExpenseQuery, type: :request do
 
       query = <<~GQL
         query { 
-          user(email: "#{user.email}") {
+          user(id: "#{user.id}") {
             currentExpenses {
               amount
               pctChange

@@ -37,7 +37,7 @@ RSpec.describe Mutations::UpdateBudget, type: :request do
       expect(data).to have_key(:month)
       expect(data[:month]).to eq("January")
       expect(data).to have_key(:category)
-      expect(data[:category]).to eq("Electronics")
+      expect(data[:category]).to eq("electronics")
       expect(data).to have_key(:amount)
       expect(data[:amount]).to eq(3500.00)
     end
@@ -49,7 +49,7 @@ RSpec.describe Mutations::UpdateBudget, type: :request do
 
       expect(user.budgets.length).to eq(1)
       expect(budget.month).to_not eq("January")
-      expect(budget.category).to_not eq("Electronics")
+      expect(budget.category).to_not eq("electronics")
       expect(budget.amount).to_not eq(3500.00)
 
       mutation = <<~GQL
@@ -76,7 +76,7 @@ RSpec.describe Mutations::UpdateBudget, type: :request do
       expect(data).to have_key(:month)
       expect(data[:month]).to eq("January")
       expect(data).to have_key(:category)
-      expect(data[:category]).to eq("Electronics")
+      expect(data[:category]).to eq("electronics")
       expect(data).to have_key(:amount)
       expect(data[:amount]).to_not eq(3500.00)
       expect(data[:amount]).to eq(budget.amount)

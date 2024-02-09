@@ -5,9 +5,7 @@ class Mutations::CreateBudget < Mutations::BaseMutation
   argument :amount, Float, required: true
 
   field :user_id, ID, null: false
-  field :month, String, null: true
-  field :category, String, null: true
-  field :amount, Float, null: true
+  field :budget, Types::BudgetType, null: false
 
   def resolve(input) # finds user, creates budget for user with input parameters
     user_id = input[:userId]
@@ -15,6 +13,13 @@ class Mutations::CreateBudget < Mutations::BaseMutation
     category = input[:category]
     amount = input[:amount]
 
-    User.find(user_id).budgets.create!(month: month, category: category, amount: amount)
+    budget = User.find(user_id).budgets.create!(month: month, category: category, amount: amount)
+
+    raise GraphQL::ExecutionError, budget.errors.full_messages.join(", ") unless budget.persisted?
+
+    {
+      user_id: user_id,
+      budget: budget
+    }
   end
 end

@@ -11,9 +11,12 @@ RSpec.describe Mutations::CreateBudget, type: :request do
         mutation {
           createBudget(input: {userId: #{user.id}, month: "January", category: "Electronics", amount: 3500.00}) {
             userId
-            month
-            category
-            amount
+            budget {
+              id
+              month
+              category
+              amount
+            }
           }
         }
       GQL
@@ -26,10 +29,12 @@ RSpec.describe Mutations::CreateBudget, type: :request do
 
       expect(data).to have_key(:userId)
       expect(data[:userId]).to eq(refetch_user.id.to_s)
+
+      data = data[:budget]
       expect(data).to have_key(:month)
       expect(data[:month]).to eq("January")
       expect(data).to have_key(:category)
-      expect(data[:category]).to eq("Electronics")
+      expect(data[:category]).to eq("electronics")
       expect(data).to have_key(:amount)
       expect(data[:amount]).to eq(3500.00)
     end
