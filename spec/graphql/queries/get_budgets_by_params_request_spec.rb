@@ -79,4 +79,42 @@ RSpec.describe "Get Budgets by Search Parameters", type: :request do
       expect(expense[:amount]).to be_a Float
     end
   end
+
+  describe "sad paths" do
+    it "must have a user" do
+      query = <<~GQL
+      query GetBudgetsByParams($month: String!, $category: String!, $email: String!) {
+        user(email: $email) {
+            id
+            budgets(month: $month, category: $category) {
+                id
+                month
+                category
+                amount
+                pctRemaining
+                amountRemaining
+            }
+            expenses(category: $category, month: $month) {
+                id
+                amount
+                date
+                category
+            }
+        }
+      }
+    GQL
+
+      post "/graphql", params: {query: query, variables: {
+        email: "not_a_real_email@email.com",
+        category: "Groceries",
+        month: "2024-02"
+      }}
+
+      json = JSON.parse(response.body, symbolize_names: true)
+      errors = json[:errors]
+      
+      expect(errors.first).to have_key(:message)
+      expect(errors.first[:message]).to eq("User not found.")
+    end
+  end
 end
