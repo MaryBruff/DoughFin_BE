@@ -30,6 +30,7 @@ RSpec.describe Mutations::CreateExpense, type: :request do
 
       expect(data).to have_key(:userId)
       expect(data[:userId]).to eq(refetch_user.id.to_s)
+      data = data[:expense]
       expect(data).to have_key(:vendor)
       expect(data[:vendor]).to eq("Apple")
       expect(data).to have_key(:category)

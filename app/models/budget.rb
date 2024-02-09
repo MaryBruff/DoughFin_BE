@@ -8,7 +8,7 @@ class Budget < ApplicationRecord
   validates :category, uniqueness: {scope: :month, message: "and month combination must be unique"}
 
   before_save :downcase_category
-  
+
   def pct_remaining
     if amount > 0
       ((amount_remaining / amount) * 100).round(1)
@@ -24,7 +24,6 @@ class Budget < ApplicationRecord
   def self.categories
     pluck(:category).uniq
   end
-
 
   def amount_remaining
     amount - amount_spent
