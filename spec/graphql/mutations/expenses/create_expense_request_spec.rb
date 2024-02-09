@@ -11,10 +11,13 @@ RSpec.describe Mutations::CreateExpense, type: :request do
         mutation {
           createExpense(input: {userId: #{user.id}, vendor: "Apple", category: "Electronics", amount: 3500.00, date: "2024-02-02"}) {
             userId
-            vendor
-            category
-            amount
-            date
+            expense {
+              id
+              vendor
+              category
+              amount
+              date
+            }
           }
         }
       GQL

@@ -11,9 +11,11 @@ RSpec.describe Mutations::CreateIncome, type: :request do
         mutation {
           createIncome(input: {userId: #{user.id}, source: "Paycheck", amount: 2312.13, date: "2023-12-15"}) {
             userId
-            source
-            amount
-            date
+            income {
+              source
+              amount
+              date
+            }
           }
         }
       GQL
@@ -25,15 +27,15 @@ RSpec.describe Mutations::CreateIncome, type: :request do
       refetch_user = User.find(user.id)
 
       expect(data).to have_key(:userId)
-      expect(data).to have_key(:source)
-      expect(data).to have_key(:amount)
-      expect(data).to have_key(:date)
+      income = data[:income]
+      expect(income).to have_key(:source)
+      expect(income).to have_key(:amount)
+      expect(income).to have_key(:date)
 
       expect(data[:userId]).to eq(user.id.to_s)
       expect(data[:source]).to eq("paycheck")
       expect(data[:amount]).to eq(2312.13)
       expect(data[:date]).to eq("2023-12-15")
-
       expect(Income.all.length).to eq(1)
       expect(refetch_user.incomes.length).to eq(1)
     end

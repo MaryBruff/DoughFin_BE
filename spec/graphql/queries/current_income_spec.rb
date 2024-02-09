@@ -15,7 +15,7 @@ RSpec.describe Queries::TotalIncomeQuery, type: :request do
 
       query = <<~GQL
         query { 
-          user(email: "#{user.email}") {
+          user(id: "#{user.id}") {
             currentIncomes {
               amount
               pctChange

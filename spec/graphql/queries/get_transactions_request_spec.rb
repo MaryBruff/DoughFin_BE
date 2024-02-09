@@ -7,8 +7,8 @@ RSpec.describe "Get Transactions", type: :request do
     user.incomes = create_list(:income, 5)
 
     query = <<~GQL
-      query getTransactions($email: String!) {
-        user(email: $email) {
+      query getTransactions($userId: ID!) {
+        user(id: $userId) {
           id
           transactions {
             id
@@ -21,7 +21,10 @@ RSpec.describe "Get Transactions", type: :request do
       }
     GQL
 
-    post "/graphql", params: {query: query, variables: {email: user.email}}
+    post "/graphql", params: {
+      query: query,
+      variables: {userId: user.id}
+    }
 
     json = JSON.parse(response.body, symbolize_names: true)
     data = json[:data]
