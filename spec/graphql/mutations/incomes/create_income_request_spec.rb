@@ -33,10 +33,9 @@ RSpec.describe Mutations::CreateIncome, type: :request do
       expect(income).to have_key(:date)
 
       expect(data[:userId]).to eq(user.id.to_s)
-      expect(income[:source]).to eq("Paycheck")
-      expect(income[:amount]).to eq(2312.13)
-      expect(income[:date]).to eq("2023-12-15")
-
+      expect(data[:source]).to eq("paycheck")
+      expect(data[:amount]).to eq(2312.13)
+      expect(data[:date]).to eq("2023-12-15")
       expect(Income.all.length).to eq(1)
       expect(refetch_user.incomes.length).to eq(1)
     end
