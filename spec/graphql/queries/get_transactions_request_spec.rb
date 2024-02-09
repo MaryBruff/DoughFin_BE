@@ -45,4 +45,32 @@ RSpec.describe "Get Transactions", type: :request do
       expect(transaction[:status]).to be_a String
     end
   end
+
+  describe "sad paths" do
+    it "must have a user" do
+      query = <<~GQL
+      query getTransactions($email: String!) {
+        user(email: $email) {
+          id
+          transactions {
+            id
+            amount
+            date
+            status
+            vendor
+          }
+        }
+      }
+      GQL
+
+      post "/graphql", params: {query: query, variables: {email: "not_a_real_email@email.com"}}
+
+
+      json = JSON.parse(response.body, symbolize_names: true)
+      errors = json[:errors]
+      
+      expect(errors.first).to have_key(:message)
+      expect(errors.first[:message]).to eq("User not found.")
+    end
+  end
 end
