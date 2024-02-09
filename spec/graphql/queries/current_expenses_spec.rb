@@ -25,6 +25,9 @@ RSpec.describe Types::CurrentExpensesType, type: :request do
       GQL
 
       post "/graphql", params: {query: query}
+
+      expect(response).to be_successful
+      
       json_response = JSON.parse(response.body, symbolize_names: true)
       data = json_response[:data]
 
@@ -34,6 +37,31 @@ RSpec.describe Types::CurrentExpensesType, type: :request do
       expect(data[:user][:currentExpenses][:amount]).to eq(500.0)
       expect(data[:user][:currentExpenses]).to have_key(:pctChange)
       expect(data[:user][:currentExpenses][:pctChange]).to eq(400.0)
+    end
+  end
+
+  describe "sad paths" do
+    it "must have a user" do
+      query = <<~GQL
+        query { 
+          user(email: "not_a_real_email@email.com") {
+            currentExpenses {
+              amount
+              pctChange
+            }
+          }
+        }
+      GQL
+
+      post "/graphql", params: {query: query}
+
+      expect(response).to be_successful # graphql responses should always be successful, even when an error occurs
+      
+      json = JSON.parse(response.body, symbolize_names: true)
+      errors = json[:errors]
+      
+      expect(errors.first).to have_key(:message)
+      expect(errors.first[:message]).to eq("User not found.")
     end
   end
 end

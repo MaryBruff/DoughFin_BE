@@ -23,6 +23,9 @@ RSpec.describe Mutations::CreateExpense, type: :request do
       GQL
 
       post "/graphql", params: {query: mutation}
+
+      expect(response).to be_successful
+      
       json_response = JSON.parse(response.body, symbolize_names: true)
       data = json_response[:data][:createExpense]
 
@@ -30,14 +33,14 @@ RSpec.describe Mutations::CreateExpense, type: :request do
 
       expect(data).to have_key(:userId)
       expect(data[:userId]).to eq(refetch_user.id.to_s)
-      expect(data).to have_key(:vendor)
-      expect(data[:vendor]).to eq("Apple")
-      expect(data).to have_key(:category)
-      expect(data[:category]).to eq("electronics")
-      expect(data).to have_key(:amount)
-      expect(data[:amount]).to eq(3500.00)
-      expect(data).to have_key(:date)
-      expect(data[:date]).to eq("2024-02-02")
+      expect(data[:expense]).to have_key(:vendor)
+      expect(data[:expense][:vendor]).to eq("Apple")
+      expect(data[:expense]).to have_key(:category)
+      expect(data[:expense][:category]).to eq("electronics")
+      expect(data[:expense]).to have_key(:amount)
+      expect(data[:expense][:amount]).to eq(3500.00)
+      expect(data[:expense]).to have_key(:date)
+      expect(data[:expense][:date]).to eq("2024-02-02")
     end
   end
 end
