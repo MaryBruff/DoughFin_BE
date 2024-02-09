@@ -37,6 +37,8 @@ RSpec.describe "Get Budgets by Search Parameters", type: :request do
       month: "2024-02"
     }}
 
+    expect(response).to be_successful
+      
     json = JSON.parse(response.body, symbolize_names: true)
     data = json[:data]
 
@@ -110,6 +112,8 @@ RSpec.describe "Get Budgets by Search Parameters", type: :request do
         month: "2024-02"
       }}
 
+      expect(response).to be_successful # graphql responses should always be successful, even when an error occurs
+      
       json = JSON.parse(response.body, symbolize_names: true)
       errors = json[:errors]
       

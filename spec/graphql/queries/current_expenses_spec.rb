@@ -25,6 +25,9 @@ RSpec.describe Types::CurrentExpensesType, type: :request do
       GQL
 
       post "/graphql", params: {query: query}
+
+      expect(response).to be_successful
+      
       json_response = JSON.parse(response.body, symbolize_names: true)
       data = json_response[:data]
 
@@ -52,6 +55,8 @@ RSpec.describe Types::CurrentExpensesType, type: :request do
 
       post "/graphql", params: {query: query}
 
+      expect(response).to be_successful # graphql responses should always be successful, even when an error occurs
+      
       json = JSON.parse(response.body, symbolize_names: true)
       errors = json[:errors]
       

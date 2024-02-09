@@ -28,6 +28,8 @@ RSpec.describe "Get Budgets", type: :request do
       variables: {userId: user.id}
     }
 
+    expect(response).to be_successful
+      
     json = JSON.parse(response.body, symbolize_names: true)
     data = json[:data]
 
@@ -66,6 +68,8 @@ RSpec.describe "Get Budgets", type: :request do
 
       post "/graphql", params: {query: query, variables: {email: "not_a_real_email@email.com"}}
 
+      expect(response).to be_successful # graphql responses should always be successful, even when an error occurs
+      
       json = JSON.parse(response.body, symbolize_names: true)
       errors = json[:errors]
       
