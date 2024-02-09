@@ -44,6 +44,7 @@ RSpec.describe "Get Budgets by Search Parameters", type: :request do
 
     expect(data[:user][:id]).to eq(user.id.to_s)
 
+    # this doesn't run if there are no budgets
     data[:user][:budgets].each do |budget|
       expect(budget).to have_key(:id)
       expect(budget[:id].to_i).to be_a Integer
@@ -53,7 +54,7 @@ RSpec.describe "Get Budgets by Search Parameters", type: :request do
 
       expect(budget).to have_key(:category)
       expect(budget[:category]).to be_a String
-      expect(budget[:category]).to eq("Groceries")
+      expect(budget[:category]).to eq("groceries")
 
       expect(budget).to have_key(:amount)
       expect(budget[:amount]).to be_a Float
@@ -75,7 +76,7 @@ RSpec.describe "Get Budgets by Search Parameters", type: :request do
 
       expect(expense).to have_key(:category)
       expect(expense[:category]).to be_a String
-      expect(expense[:category]).to eq("Groceries")
+      expect(expense[:category]).to eq("groceries")
 
       expect(expense).to have_key(:amount)
       expect(expense[:amount]).to be_a Float

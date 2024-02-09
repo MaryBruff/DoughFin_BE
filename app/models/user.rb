@@ -11,13 +11,13 @@ class User < ApplicationRecord
                              amount,
                              source AS vendor,
                              date,
-                             'debited' AS status FROM incomes WHERE user_id = #{id}
+                             'credited' AS status FROM incomes WHERE user_id = #{id}
                       UNION
                       SELECT id,
                              amount,
                              vendor,
                              date,
-                             'credited' AS status FROM expenses WHERE user_id = #{id}
+                             'debited' AS status FROM expenses WHERE user_id = #{id}
                       ORDER BY date DESC")
   end
 
