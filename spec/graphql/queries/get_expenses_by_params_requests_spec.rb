@@ -49,4 +49,31 @@ RSpec.describe "Get Expenses by Params", type: :request do
       # expect(expense[:source]).to be_a String
     end
   end
+
+  describe "sad paths" do
+    it "must have a user" do
+      query = <<~GQL
+      query getExpensesByParams($email: String!, $category: String!, $month: String!) {
+        user(email: $email) {
+            id
+            expenses(category: $category, month: $month) {
+                id
+                amount
+                date
+                category
+            }
+        }
+      }
+      GQL
+
+      post "/graphql", params: {query: query, variables: {email: "not_a_real_email@email.com", category: "Groceries", month: "2024-02"}}
+
+
+      json = JSON.parse(response.body, symbolize_names: true)
+      errors = json[:errors]
+      
+      expect(errors.first).to have_key(:message)
+      expect(errors.first[:message]).to eq("User not found.")
+    end
+  end
 end
