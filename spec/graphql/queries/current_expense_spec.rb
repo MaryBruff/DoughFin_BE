@@ -36,4 +36,27 @@ RSpec.describe Queries::TotalExpenseQuery, type: :request do
       expect(data[:user][:currentExpenses][:pctChange]).to eq(400.0)
     end
   end
+
+  describe "sad paths" do
+    it "must have a user" do
+      query = <<~GQL
+        query { 
+          user(email: "not_a_real_email@email.com") {
+            currentExpenses {
+              amount
+              pctChange
+            }
+          }
+        }
+      GQL
+
+      post "/graphql", params: {query: query}
+
+      json = JSON.parse(response.body, symbolize_names: true)
+      errors = json[:errors]
+      
+      expect(errors.first).to have_key(:message)
+      expect(errors.first[:message]).to eq("User not found.")
+    end
+  end
 end
