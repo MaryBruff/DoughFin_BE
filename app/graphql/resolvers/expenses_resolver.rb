@@ -11,7 +11,7 @@ module Resolvers
     def resolve(month: nil, category: nil)
       ## defaults as nil for both argument parameters and determines the proper response
       if month.present? && category.present?
-        object.expenses.where("to_char(date, 'YYYY-MM') = ? AND category = ?", month, category)
+        object.expenses.where("to_char(date, 'YYYY-MM') = ? AND category ILIKE ?", month, category)
       else
         object.expenses
       end
