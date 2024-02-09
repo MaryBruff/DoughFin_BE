@@ -21,6 +21,8 @@ RSpec.describe Mutations::DeleteIncome, type: :request do
 
       post "/graphql", params: {query: mutation}
 
+      expect(response).to be_successful
+      
       json_response = JSON.parse(response.body)
       data = json_response["data"]["deleteIncome"]
 

@@ -28,6 +28,8 @@ RSpec.describe "Get Budgets", type: :request do
       variables: {userId: user.id}
     }
 
+    expect(response).to be_successful
+      
     json = JSON.parse(response.body, symbolize_names: true)
     data = json[:data]
 
@@ -45,6 +47,34 @@ RSpec.describe "Get Budgets", type: :request do
 
       expect(budget).to have_key(:amount)
       expect(budget[:amount]).to be_a Float
+    end
+  end
+
+  describe "sad paths" do
+    it "must have a user" do
+      query = <<~GQL
+      query GetBudgets($email: String!) {
+          user(email: $email) {
+              id
+              budgets {
+                  id
+                  month
+                  category
+                  amount
+              }
+          }
+        }
+      GQL
+
+      post "/graphql", params: {query: query, variables: {email: "not_a_real_email@email.com"}}
+
+      expect(response).to be_successful # graphql responses should always be successful, even when an error occurs
+      
+      json = JSON.parse(response.body, symbolize_names: true)
+      errors = json[:errors]
+      
+      expect(errors.first).to have_key(:message)
+      expect(errors.first[:message]).to eq("User not found.")
     end
   end
 end

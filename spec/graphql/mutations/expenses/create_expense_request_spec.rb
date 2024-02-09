@@ -23,6 +23,9 @@ RSpec.describe Mutations::CreateExpense, type: :request do
       GQL
 
       post "/graphql", params: {query: mutation}
+
+      expect(response).to be_successful
+      
       json_response = JSON.parse(response.body, symbolize_names: true)
       data = json_response[:data][:createExpense]
 
