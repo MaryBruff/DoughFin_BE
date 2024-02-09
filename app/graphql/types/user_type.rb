@@ -6,6 +6,7 @@ module Types
     field :transactions, [Types::TransactionType], null: true
     field :username, String, null: false
     field :email, String, null: false
+    field :budgetCategories, [String], resolver: Queries::BudgetCategoriesQuery, null: true
     field :current_incomes, Types::CurrentIncomesType, null: true do
       description "Returns the current income and percent change"
     end
