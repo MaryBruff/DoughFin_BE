@@ -1,22 +1,28 @@
 require "rails_helper"
 
 RSpec.describe Budget, type: :model do
+  let(:user) { create :user }
+  # subject refers to the shoulda-matchers object
+  subject { create :budget, user: user, category: "Some Category", month: "2024-02" }
   it { should validate_presence_of(:amount) }
   it { should validate_numericality_of(:amount) }
   it { should validate_presence_of(:category) }
   it { should validate_presence_of(:month) }
+  it { should validate_uniqueness_of(:category).scoped_to(:month).with_message("and month combination must be unique") }
 
   describe "instance methods" do
     describe "#categories" do
       it "returns all unique categories" do
         user = create :user
-        5.times do
-          create :budget, user: user, category: "Food"
-        end
+        create :budget, user: user, category: "Food", amount: 100
+        create :budget, user: user, category: "Clothing", amount: 100
+        create :budget, user: user, category: "Entertainment", amount: 100
+        create :budget, user: user, category: "Transportation", amount: 100
+        create :budget, user: user, category: "Health", amount: 100
 
         user.budgets.categories
 
-        expect(user.budgets.categories.size).to eq 1
+        expect(user.budgets.categories.size).to eq 5
       end
     end
   end

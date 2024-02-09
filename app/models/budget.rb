@@ -4,6 +4,8 @@ class Budget < ApplicationRecord
   validates :amount, presence: true, numericality: true
   validates :category, presence: true
   validates :month, presence: true
+  # Validates the uniqueness of the combination of category and month
+  validates :category, uniqueness: {scope: :month, message: "and month combination must be unique"}
 
   def self.categories
     pluck(:category).uniq

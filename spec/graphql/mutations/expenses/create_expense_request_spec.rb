@@ -11,10 +11,13 @@ RSpec.describe Mutations::CreateExpense, type: :request do
         mutation {
           createExpense(input: {userId: #{user.id}, vendor: "Apple", category: "Electronics", amount: 3500.00, date: "2024-02-02"}) {
             userId
-            vendor
-            category
-            amount
-            date
+            expense {
+              id
+              vendor
+              category
+              amount
+              date
+            }
           }
         }
       GQL
@@ -27,14 +30,15 @@ RSpec.describe Mutations::CreateExpense, type: :request do
 
       expect(data).to have_key(:userId)
       expect(data[:userId]).to eq(refetch_user.id.to_s)
-      expect(data).to have_key(:vendor)
-      expect(data[:vendor]).to eq("Apple")
-      expect(data).to have_key(:category)
-      expect(data[:category]).to eq("Electronics")
-      expect(data).to have_key(:amount)
-      expect(data[:amount]).to eq(3500.00)
-      expect(data).to have_key(:date)
-      expect(data[:date]).to eq("2024-02-02")
+      expense = data[:expense]
+      expect(expense).to have_key(:vendor)
+      expect(expense[:vendor]).to eq("Apple")
+      expect(expense).to have_key(:category)
+      expect(expense[:category]).to eq("Electronics")
+      expect(expense).to have_key(:amount)
+      expect(expense[:amount]).to eq(3500.00)
+      expect(expense).to have_key(:date)
+      expect(expense[:date]).to eq("2024-02-02")
     end
   end
 end
