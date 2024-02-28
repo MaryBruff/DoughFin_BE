@@ -1,5 +1,4 @@
-name: Whether Sweater API
-on:
+name: DoughFin API
   push:
     branches:
       - main
