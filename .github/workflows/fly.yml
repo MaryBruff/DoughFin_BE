@@ -1,4 +1,5 @@
 name: DoughFin API
+on:
   push:
     branches:
       - main
